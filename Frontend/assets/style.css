@@ -10,11 +10,12 @@ header {
     height: 10vh;
     top: 0;
     position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 h1 {
-    text-align: center;
     margin: 0;
-  
 }
 main {
     border: solid 3px blue;
