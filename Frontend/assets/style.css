@@ -24,6 +24,32 @@ main {
 .row {
     text-align: center;
 }
+.searchAndCreateSection {
+    display: flex;
+}
+.taskCreationButton {
+    flex: 1;
+    border: solid 3px yellow;
+}
+.searchBar {
+    flex: 1;
+    border: solid 3px yellow;
+}
+.filterButton {
+    flex: 1;
+    border: solid 3px yellow;
+}
+.containerInProgressAndCompleted {
+    display: flex;
+}
+.inProgressSection {
+    border: solid 3px green;
+    flex: 1;
+}
+.completedSection {
+    border: solid 3px red;
+    flex: 1;
+}
 footer {
     border: solid 3px green; 
     height: 10vh;
