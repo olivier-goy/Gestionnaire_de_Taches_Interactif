@@ -1,3 +1,23 @@
-h1 {
-    color: red;
+body {
+    margin: 0;
+    padding: 0;
+    left: 0;
+    right: 0;
+    min-height: 100%;
+}
+header {
+    border: solid 3px red;
+    height: 10vh;
+    top: 0;
+    position: relative;
+}
+main {
+    border: solid 3px blue;
+    height: 78vh;
+}
+footer {
+    border: solid 3px green; 
+    height: 10vh;
+    bottom: 0;
+    position: relative;
 }
