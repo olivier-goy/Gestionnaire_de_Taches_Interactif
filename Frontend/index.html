@@ -4,7 +4,8 @@
     <meta charset="UTF-8" />
     <title>Gestionnaire</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../assets/style.css" />
+    <link rel="stylesheet" href="./assets/style.css" />
+    <script src="./js/controllers/homePage-controller.js" type="module"></script>
   </head>
   <body>
     <header>
@@ -14,15 +15,15 @@
       <div class="row">
         <section class="searchAndCreateSection">
           <div class="taskCreationButton">
-            <button>Créer</button>
+            <a id="createTaskButton">Créer</a>
+          </div>
+          <div id="openModalCreateTask" class="modalCreateTask">
+            <div class="contentModalCreateTask">
+              <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Architecto possimus ullam beatae minus ratione fugiat cumque inventore aperiam a similique voluptatibus est recusandae exercitationem esse placeat nemo, debitis, sapiente accusamus?</p>
+            </div>
           </div>
           <div class="searchBar">
-            <input
-              type="search"
-              name=""
-              id="searchTitle"
-              placeholder="Recherche"
-            />
+            <input type="search" name="" id="searchTitle" placeholder="Recherche" />
             <button>Recherche</button>
           </div>
           <div class="filterButton">
