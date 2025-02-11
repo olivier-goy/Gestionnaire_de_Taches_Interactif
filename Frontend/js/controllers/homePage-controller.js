@@ -3,10 +3,11 @@ import ViewHomePage from "../views/homePage-view.js";
 
 class ControllerHomePage {
   constructor() {
-    this.modelHomePage = new ModelHomePage();
     this.viewHomePage = new ViewHomePage();
+    this.modelHomePage = new ModelHomePage();
 
     this.viewHomePage.bindAddTask(this.handleAddTask.bind(this));
+    this.viewHomePage.renderTasks(this.modelHomePage.getTasks());
   }
 
   // Ajouter la tâche au modèle
@@ -18,7 +19,7 @@ class ControllerHomePage {
       dateTask,
       stateTask
     );
-    this.viewHomePage.renderTasks(this.model.getTasks()); // Mettre à jour l'affichage
+    this.viewHomePage.renderTasks(this.modelHomePage.getTasks()); // Mettre à jour l'affichage
   }
 }
 

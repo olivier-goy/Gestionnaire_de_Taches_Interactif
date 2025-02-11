@@ -19,7 +19,7 @@ h1 {
 }
 main {
   border: solid 3px blue;
-  height: 78vh;
+  min-height: 78vh;
 }
 .row {
   text-align: center;
@@ -99,15 +99,12 @@ main {
   flex: 1;
 }
 .cardInProgress {
-  border: solid 1px black;
-  border-radius: 15px;
-  width: 40vh;
+  border: solid 1px gray;
+  border-radius: 10px;
+  width: 30vh;
   text-align: left;
   margin: auto;
-  padding: 10px;
-}
-.tagAndModificationCard {
-  display: flex;
+  margin-bottom: 20px;
 }
 .tagsCard {
   text-align: left;
@@ -116,6 +113,21 @@ main {
 .modificationCard {
   text-align: right;
   flex: 1;
+}
+.titleCard {
+  text-align: center;
+}
+.descriptionCard {
+  border: solid 1px gray;
+  border-radius: 5px;
+  padding: 10px;
+}
+.tagAndModificationCard {
+  display: flex;
+  padding: 10px;
+}
+.dueDataCard {
+  text-align: center;
 }
 .completedSection {
   border: solid 3px red;

@@ -2,7 +2,56 @@ class ViewHomePage {
   constructor() {
     this.modalCreateTask();
     this.form = document.getElementById("taskForm");
-    console.log(this.form.value)
+    this.taskList = document.getElementById("cardInTask");
+  }
+
+  renderTasks(tasks) {
+    this.taskList.innerHTML = "";
+    tasks.forEach((task) => {
+      const divCardInProgress = document.createElement("div");
+      divCardInProgress.classList = "cardInProgress";
+      const divTagAndModificationCard = document.createElement("div");
+      divTagAndModificationCard.classList = "tagAndModificationCard";
+      const divTagsCard = document.createElement("div");
+      divTagsCard.classList = "tagsCard";
+      const tags = document.createElement("button");
+      tags.textContent = task.priority;
+      const divBtnModificationCard = document.createElement("div");
+      divBtnModificationCard.classList = "modificationCard";
+      const btnModificationCard = document.createElement("button");
+      btnModificationCard.textContent = "...";
+      const divTitleCard = document.createElement("div");
+      divTitleCard.classList = "titleCard";
+      const h3TitleCard = document.createElement("h3");
+      h3TitleCard.textContent = task.title;
+      const divDescriptionCard = document.createElement("div");
+      divDescriptionCard.classList = "descriptionCard";
+      const h3DescriptionCard = document.createElement("h3");
+      h3DescriptionCard.textContent = "Description :";
+      const pDescriptionCard = document.createElement("p");
+      pDescriptionCard.textContent = task.description;
+      const divDueDataCard = document.createElement("div");
+      divDueDataCard.classList = "dueDataCard";
+      const h3DueDataCard = document.createElement("h3");
+      h3DueDataCard.textContent = `Date de fin: ${task.time}`;
+
+      divTagsCard.appendChild(tags);
+      divBtnModificationCard.appendChild(btnModificationCard);
+      divTagAndModificationCard.appendChild(divTagsCard);
+      divTagAndModificationCard.appendChild(divBtnModificationCard);
+      divCardInProgress.appendChild(divTagAndModificationCard);
+
+      divTitleCard.appendChild(h3TitleCard);
+      divCardInProgress.appendChild(divTitleCard);
+
+      divDescriptionCard.appendChild(h3DescriptionCard);
+      divDescriptionCard.appendChild(pDescriptionCard);
+      divCardInProgress.appendChild(divDescriptionCard);
+
+      divDueDataCard.appendChild(h3DueDataCard);
+      divCardInProgress.appendChild(divDueDataCard);
+      this.taskList.appendChild(divCardInProgress);
+    });
   }
 
   // Ouverture et fermeture de la modal pour la création de tâches
@@ -24,20 +73,48 @@ class ViewHomePage {
 
   // Récupération des données du form pour la création de tâches
   bindAddTask(handler) {
-        const btnAddTask = document.getElementById("btnSubmitTask");
-         btnAddTask.addEventListener("click", function (event) {
-           event.preventDefault();
-           const priorityTask = this.form.querySelector('select[name="tagPriority"]').value;
-           const titleTask = this.form.querySelector('input[name="title"]').value;
-           const descriptionTask = this.form.querySelector('textarea[name="description"]').value;
-           const dateTask = this.form.querySelector('input[name="time"]').value;
-           const stateTask = this.form.querySelector('select[name="stateTask"]').value;
+    const btnAddTask = document.getElementById("btnSubmitTask");
+    btnAddTask.addEventListener("click", function (event) {
+      event.preventDefault();
+      const priorityTask = this.form.querySelector(
+        'select[name="tagPriority"]'
+      ).value;
+      const titleTask = this.form.querySelector('input[name="title"]').value;
+      const descriptionTask = this.form.querySelector(
+        'textarea[name="description"]'
+      ).value;
+      const dateTask = this.form.querySelector('input[name="time"]').value;
+      const stateTask = this.form.querySelector(
+        'select[name="stateTask"]'
+      ).value;
 
-            handler(priorityTask, titleTask, descriptionTask, dateTask, stateTask);
+      if (priorityTask && titleTask && dateTask && dateTask) {
+        handler(priorityTask, titleTask, descriptionTask, dateTask, stateTask);
 
-            this.form.reset();
-         });
+        this.form.reset();
+
+        document.getElementById("openModalCreateTask").style.display = "none";
+        this.form.querySelector('select[name="tagPriority"]').style.border =
+          "solid 1px black";
+        this.form.querySelector('input[name="title"]').style.border =
+          "solid 1px black";
+        this.form.querySelector('input[name="time"]').style.border =
+          "solid 1px black";
+        this.form.querySelector('select[name="stateTask"]').style.border =
+          "solid 1px black";
+      } else {
+        this.form.querySelector('select[name="tagPriority"]').style.border =
+          "solid red";
+        this.form.querySelector('input[name="title"]').style.border =
+          "solid red";
+        this.form.querySelector('input[name="time"]').style.border =
+          "solid red";
+        this.form.querySelector('select[name="stateTask"]').style.border =
+          "solid red";
+        alert("les champs en rouge sont obligatoire");
       }
+    });
+  }
 }
 
 export default ViewHomePage;
