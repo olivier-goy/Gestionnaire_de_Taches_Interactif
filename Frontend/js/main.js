@@ -1,5 +1,5 @@
-import ViewHomePage from "../js/views/homePage-view.js";
+import ControllerHomePage from "./controllers/homePage-controller.js";
 
 document.addEventListener("DOMContentLoaded", function() {
-    const viewHomePage = new ViewHomePage();
+    new ControllerHomePage();
 })
