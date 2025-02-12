@@ -98,7 +98,7 @@ main {
   border: solid 3px green;
   flex: 1;
 }
-.cardInProgress {
+.cardTask {
   border: solid 1px gray;
   border-radius: 10px;
   width: 30vh;

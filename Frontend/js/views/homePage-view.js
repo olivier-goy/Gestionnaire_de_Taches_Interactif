@@ -2,14 +2,17 @@ class ViewHomePage {
   constructor() {
     this.modalCreateTask();
     this.form = document.getElementById("taskForm");
-    this.taskList = document.getElementById("cardInTask");
+    this.taskListInProgress = document.getElementById("cardInTask");
+    this.taskListCompleted = document.getElementById("cardCompleted");
   }
 
+  // méthode pour afficher les tâches
   renderTasks(tasks) {
-    this.taskList.innerHTML = "";
+    this.taskListInProgress.innerHTML = "";
+    this.taskListCompleted.innerHTML = "";
     tasks.forEach((task) => {
       const divCardInProgress = document.createElement("div");
-      divCardInProgress.classList = "cardInProgress";
+      divCardInProgress.classList = "cardTask";
       const divTagAndModificationCard = document.createElement("div");
       divTagAndModificationCard.classList = "tagAndModificationCard";
       const divTagsCard = document.createElement("div");
@@ -50,9 +53,15 @@ class ViewHomePage {
 
       divDueDataCard.appendChild(h3DueDataCard);
       divCardInProgress.appendChild(divDueDataCard);
-      this.taskList.appendChild(divCardInProgress);
+      if(task.state == "inProgress") {
+        this.taskListInProgress.appendChild(divCardInProgress);
+      } else {
+        this.taskListCompleted.appendChild(divCardInProgress);
+      }
     });
   }
+
+
 
   // Ouverture et fermeture de la modal pour la création de tâches
   modalCreateTask() {
