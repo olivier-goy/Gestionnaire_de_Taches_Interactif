@@ -49,21 +49,16 @@
             <button id="filterAllTask">Toutes</button>
             <button id="filterInPorgressTask">En Cours</button>
             <button id="filterCompletedTask">Terminées</button>
-            <select>
-              <option value="0">Echéances</option>
-              <option value="shorter">Date la plus courte</option>
-              <option value="longest">Date la plus longue</option>
-            </select>
             <select id="filterPriorityTask">
-              <option value="0">Priorité</option>
-              <option value="low">En ordre croissant</option>
-              <option value="top">En ordre décroissant</option>
+              <option value="sort">Trier / reset</option>
+              <option value="shorter">Date court</option>
+              <option value="longest">Date longue</option>
+              <option value="low">Croissant priorité</option>
+              <option value="top">Décroissant priorité</option>
             </select>
           </div>
         </section>
-        <section id="progressionBar" class="ProgressionBarSection">
-          
-        </section>
+        <section id="progressionBar" class="ProgressionBarSection"></section>
         <section class="containerInProgressAndCompleted">
           <div class="inProgressSection">
             <h2>En Cours</h2>

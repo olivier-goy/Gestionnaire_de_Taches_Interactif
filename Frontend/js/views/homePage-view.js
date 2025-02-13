@@ -4,10 +4,9 @@ class ViewHomePage {
     this.taskListInProgress = document.getElementById("cardInTask");
     this.taskListCompleted = document.getElementById("cardCompleted");
     this.progressionBar = document.getElementById("progressionBar");
-
   }
 
-  // méthode pour afficher les tâches
+  // Visuel de la carte des tâches
   renderTasks(tasks) {
     this.taskListInProgress.innerHTML = "";
     this.taskListCompleted.innerHTML = "";
@@ -33,7 +32,7 @@ class ViewHomePage {
       divDescriptionCard.innerHTML = `
       <h3>Description :</h3>
       <p>${task.description}</p>
-      `
+      `;
       const divDueDataCard = document.createElement("div");
       divDueDataCard.classList = "dueDataCard";
       const h3DueDataCard = document.createElement("h3");
@@ -51,7 +50,7 @@ class ViewHomePage {
       divCardInProgress.appendChild(divDueDataCard);
 
       // Condition pour afficher les tâches soit dans en cours ou alors terminés
-      if(task.state == "inProgress") {
+      if (task.state == "inProgress") {
         this.taskListInProgress.appendChild(divCardInProgress);
       } else {
         this.taskListCompleted.appendChild(divCardInProgress);
@@ -59,62 +58,63 @@ class ViewHomePage {
     });
   }
 
+  //filtrer les Tâches
   filterTask(tasks) {
-
     const btnFilterAllTask = document.getElementById("filterAllTask");
-    btnFilterAllTask.addEventListener("click", function() {
-        document.getElementById("cardInTask").style.display = "block";
-        document.getElementById("cardCompleted").style.display = "block";
+    btnFilterAllTask.addEventListener("click", function () {
+      document.getElementById("cardInTask").style.display = "block";
+      document.getElementById("cardCompleted").style.display = "block";
     });
-    
-    const btnFilterInProgressTask = document.getElementById("filterInPorgressTask");
+
+    const btnFilterInProgressTask = document.getElementById(
+      "filterInPorgressTask"
+    );
     btnFilterInProgressTask.addEventListener("click", function () {
-        tasks.forEach((task) => {
-            if(task.state == "inProgress") {
-                document.getElementById("cardCompleted").style.display = "none";
-                document.getElementById("cardInTask").style.display = "block";
-            }
-            
-        });
-    });
-
-    const btnFilterCompletedTask = document.getElementById("filterCompletedTask");
-    btnFilterCompletedTask.addEventListener("click", function() {
-        tasks.forEach((task) => {
-            if(task.state == "finish") {
-                document.getElementById("cardInTask").style.display = "none";
-                document.getElementById("cardCompleted").style.display = "block";
-            }
-        });
-    });
-
-    const btnFilterPriorityTask = document.getElementById("filterPriorityTask");
-    btnFilterPriorityTask.addEventListener("click", function () {
-        if(btnFilterPriorityTask.value == "low") {
-            console.log(tasks.sort((a, b) => a - b));
-            
+      tasks.forEach((task) => {
+        if (task.state == "inProgress") {
+          document.getElementById("cardCompleted").style.display = "none";
+          document.getElementById("cardInTask").style.display = "block";
         }
+      });
+    });
+
+    const btnFilterCompletedTask = document.getElementById(
+      "filterCompletedTask"
+    );
+    btnFilterCompletedTask.addEventListener("click", function () {
+      tasks.forEach((task) => {
+        if (task.state == "finish") {
+          document.getElementById("cardInTask").style.display = "none";
+          document.getElementById("cardCompleted").style.display = "block";
+        }
+      });
+    });
+  }
+
+  //Ecoute pour trier par date les tâches.
+  sortFilterTask(handler) {
+    const btnFilterPriorityTask = document.getElementById("filterPriorityTask");
+    btnFilterPriorityTask.addEventListener("change", function () {
+      handler(btnFilterPriorityTask);
     });
   }
 
   // Affichage de la barre de progression
-  PercentageTask(percentageTask) {
-    
+  percentageTask(percentageTask) {
     this.progressionBar.innerHTML = "";
 
     const labelProgression = document.createElement("label");
-    labelProgression.id = "bar"
-    labelProgression.innerText = "Progression dans les Tâches : "
-    const bar = document.createElement('progress');
+    labelProgression.id = "bar";
+    labelProgression.innerText = "Progression dans les Tâches : ";
+    const bar = document.createElement("progress");
     bar.id = "bar";
     bar.max = 100;
     bar.value = percentageTask;
     bar.innerText = `${percentageTask}%`;
 
-    this.progressionBar.appendChild(labelProgression)
-    this.progressionBar.appendChild(bar)
+    this.progressionBar.appendChild(labelProgression);
+    this.progressionBar.appendChild(bar);
   }
-
 
   // Ouverture et fermeture de la modal pour la création de tâches
   modalCreateTask() {
@@ -141,7 +141,9 @@ class ViewHomePage {
       const priorityTaskTag = this.form.querySelector(
         'select[name="priorityTaskTag"]'
       ).value;
-      const titleTask = this.form.querySelector('input[name="titleTask"]').value;
+      const titleTask = this.form.querySelector(
+        'input[name="titleTask"]'
+      ).value;
       const descriptionTask = this.form.querySelector(
         'textarea[name="descriptionTask"]'
       ).value;
@@ -151,7 +153,13 @@ class ViewHomePage {
       ).value;
 
       if (priorityTaskTag && titleTask && dateTask && dateTask) {
-        handler(priorityTaskTag, titleTask, descriptionTask, dateTask, stateTask);
+        handler(
+          priorityTaskTag,
+          titleTask,
+          descriptionTask,
+          dateTask,
+          stateTask
+        );
 
         this.form.reset();
 
