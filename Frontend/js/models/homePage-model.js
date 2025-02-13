@@ -43,6 +43,13 @@ class ModelHomePage {
   getTasks() {
     return this.tasks;
   }
+
+  // Calculer le pourcentage des tâches
+  calPercentageTask() {
+    const numberTask = this.tasks.length;
+    const numberCompletedTask = this.tasks.filter((task) => task.state == "finish").length;
+    return numberCompletedTask * 100 / numberTask;    
+  }
 }
 
 export default ModelHomePage;

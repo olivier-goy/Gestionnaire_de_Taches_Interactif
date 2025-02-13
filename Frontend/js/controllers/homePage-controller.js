@@ -11,7 +11,7 @@ class ControllerHomePage {
 
     this.viewHomePage.filterTask(this.modelHomePage.getTasks());
     this.viewHomePage.modalCreateTask();
-    this.viewHomePage.PercentageTask(this.modelHomePage.getTasks());
+    this.viewHomePage.PercentageTask(this.modelHomePage.calPercentageTask());
   }
 
   // Ajouter la tâche au modèle

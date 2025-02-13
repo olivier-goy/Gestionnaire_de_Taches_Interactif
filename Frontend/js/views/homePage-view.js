@@ -97,17 +97,10 @@ class ViewHomePage {
     });
   }
 
-  PercentageTask(tasks) {
-
+  // Affichage de la barre de progression
+  PercentageTask(percentageTask) {
+    
     this.progressionBar.innerHTML = "";
-    
-    const numberTask = tasks.length;
-    const numberCompletedTask = tasks.filter((task) => task.state == "finish").length;
-    const calPercentage = numberCompletedTask * 100 / numberTask;
-
-    console.log(calPercentage);
-    
-
 
     const labelProgression = document.createElement("label");
     labelProgression.id = "bar"
@@ -115,14 +108,11 @@ class ViewHomePage {
     const bar = document.createElement('progress');
     bar.id = "bar";
     bar.max = 100;
-    bar.value = calPercentage;
-    bar.innerText = `${calPercentage}%`
+    bar.value = percentageTask;
+    bar.innerText = `${percentageTask}%`;
 
     this.progressionBar.appendChild(labelProgression)
     this.progressionBar.appendChild(bar)
-
-    
-    
   }
 
 
