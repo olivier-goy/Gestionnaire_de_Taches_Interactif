@@ -8,6 +8,9 @@ class ControllerHomePage {
 
     this.viewHomePage.bindAddTask(this.handleAddTask.bind(this));
     this.viewHomePage.renderTasks(this.modelHomePage.getTasks());
+
+    this.viewHomePage.filterTask(this.modelHomePage.getTasks());
+    this.viewHomePage.modalCreateTask();
   }
 
   // Ajouter la tâche au modèle

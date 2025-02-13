@@ -1,9 +1,9 @@
 class ViewHomePage {
   constructor() {
-    this.modalCreateTask();
     this.form = document.getElementById("taskForm");
     this.taskListInProgress = document.getElementById("cardInTask");
     this.taskListCompleted = document.getElementById("cardCompleted");
+
   }
 
   // méthode pour afficher les tâches
@@ -43,16 +43,15 @@ class ViewHomePage {
       divTagAndModificationCard.appendChild(divTagsCard);
       divTagAndModificationCard.appendChild(divBtnModificationCard);
       divCardInProgress.appendChild(divTagAndModificationCard);
-
       divTitleCard.appendChild(h3TitleCard);
       divCardInProgress.appendChild(divTitleCard);
-
       divDescriptionCard.appendChild(h3DescriptionCard);
       divDescriptionCard.appendChild(pDescriptionCard);
       divCardInProgress.appendChild(divDescriptionCard);
-
       divDueDataCard.appendChild(h3DueDataCard);
       divCardInProgress.appendChild(divDueDataCard);
+
+      // Condition pour afficher les tâches soit dans en cours ou alors terminés
       if(task.state == "inProgress") {
         this.taskListInProgress.appendChild(divCardInProgress);
       } else {
@@ -61,6 +60,24 @@ class ViewHomePage {
     });
   }
 
+  filterTask(tasks) {
+
+    const btnFilterAllTask = document.getElementById("filterAllTask");
+    btnFilterAllTask.addEventListener("click", function() {
+        document.getElementById("cardInTask").style.display = "block";
+        document.getElementById("cardCompleted").style.display = "block";
+    });
+    
+    const btnFilterInProgressTask = document.getElementById("filterInPorgressTask");
+    btnFilterInProgressTask.addEventListener("click", function () {
+        tasks.forEach((task) => {
+            if(task.state == "inProgress") {
+                document.getElementById("cardCompleted").style.display = "none";
+            }
+            
+        });
+    });
+  }
 
 
   // Ouverture et fermeture de la modal pour la création de tâches
