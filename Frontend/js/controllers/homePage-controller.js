@@ -11,6 +11,7 @@ class ControllerHomePage {
 
     this.viewHomePage.filterTask(this.modelHomePage.getTasks());
     this.viewHomePage.modalCreateTask();
+    this.viewHomePage.PercentageTask(this.modelHomePage.getTasks());
   }
 
   // Ajouter la tâche au modèle
@@ -22,8 +23,11 @@ class ControllerHomePage {
       dateTask,
       stateTask
     );
-    this.viewHomePage.renderTasks(this.modelHomePage.getTasks()); // Mettre à jour l'affichage
-  }
+
+    // Mettre à jour l'affichage
+    this.viewHomePage.PercentageTask(this.modelHomePage.getTasks());
+    this.viewHomePage.renderTasks(this.modelHomePage.getTasks());
+}
 }
 
 export default ControllerHomePage;

@@ -21,17 +21,17 @@
             <div class="contentModalCreateTask">
                 <h2>Ajout de Tâches</h2>
                 <form id="taskForm">
-                  <select name="tagPriority">
+                  <select name="priorityTaskTag">
                     <option value="Basse">Basse</option>
                     <option value="Moyenne">Moyenne</option>
                     <option value="Elevée">Elevée</option>
                   </select>
                   <br>
-                  <input type="text" name="title" placeholder="Titre" required />
+                  <input type="text" name="titleTask" placeholder="Titre" required />
                   <br>
-                  <textarea type="text" name="description" rows="5" cols="33" maxlength="255" placeholder="Description"></textarea>
+                  <textarea type="text" name="descriptionTask" rows="5" cols="33" maxlength="255" placeholder="Description"></textarea>
                   <br>
-                  <input type="date" name="time" required />
+                  <input type="date" name="timeTask" required />
                   <br>
                   <select name="stateTask">
                     <option value="inProgress">En Cours</option>
@@ -49,13 +49,20 @@
             <button id="filterAllTask">Toutes</button>
             <button id="filterInPorgressTask">En Cours</button>
             <button id="filterCompletedTask">Terminées</button>
-            <button>Echéances</button>
-            <button>Priorité</button>
+            <select>
+              <option value="0">Echéances</option>
+              <option value="shorter">Date la plus courte</option>
+              <option value="longest">Date la plus longue</option>
+            </select>
+            <select id="filterPriorityTask">
+              <option value="0">Priorité</option>
+              <option value="low">En ordre croissant</option>
+              <option value="top">En ordre décroissant</option>
+            </select>
           </div>
         </section>
-        <section class="ProgressionBarSection">
-          <label for="file">Progression des tâches:</label>
-          <progress id="file" max="100" value="70"></progress>
+        <section id="progressionBar" class="ProgressionBarSection">
+          
         </section>
         <section class="containerInProgressAndCompleted">
           <div class="inProgressSection">

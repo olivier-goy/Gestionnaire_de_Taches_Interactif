@@ -3,6 +3,7 @@ class ViewHomePage {
     this.form = document.getElementById("taskForm");
     this.taskListInProgress = document.getElementById("cardInTask");
     this.taskListCompleted = document.getElementById("cardCompleted");
+    this.progressionBar = document.getElementById("progressionBar");
 
   }
 
@@ -84,8 +85,44 @@ class ViewHomePage {
                 document.getElementById("cardInTask").style.display = "none";
                 document.getElementById("cardCompleted").style.display = "block";
             }
-        })
+        });
     });
+
+    const btnFilterPriorityTask = document.getElementById("filterPriorityTask");
+    btnFilterPriorityTask.addEventListener("click", function () {
+        if(btnFilterPriorityTask.value == "low") {
+            console.log(tasks.sort((a, b) => a - b));
+            
+        }
+    });
+  }
+
+  PercentageTask(tasks) {
+
+    this.progressionBar.innerHTML = "";
+    
+    const numberTask = tasks.length;
+    const numberCompletedTask = tasks.filter((task) => task.state == "finish").length;
+    const calPercentage = numberCompletedTask * 100 / numberTask;
+
+    console.log(calPercentage);
+    
+
+
+    const labelProgression = document.createElement("label");
+    labelProgression.id = "bar"
+    labelProgression.innerText = "Progression dans les Tâches : "
+    const bar = document.createElement('progress');
+    bar.id = "bar";
+    bar.max = 100;
+    bar.value = calPercentage;
+    bar.innerText = `${calPercentage}%`
+
+    this.progressionBar.appendChild(labelProgression)
+    this.progressionBar.appendChild(bar)
+
+    
+    
   }
 
 
@@ -111,38 +148,38 @@ class ViewHomePage {
     const btnAddTask = document.getElementById("btnSubmitTask");
     btnAddTask.addEventListener("click", function (event) {
       event.preventDefault();
-      const priorityTask = this.form.querySelector(
-        'select[name="tagPriority"]'
+      const priorityTaskTag = this.form.querySelector(
+        'select[name="priorityTaskTag"]'
       ).value;
-      const titleTask = this.form.querySelector('input[name="title"]').value;
+      const titleTask = this.form.querySelector('input[name="titleTask"]').value;
       const descriptionTask = this.form.querySelector(
-        'textarea[name="description"]'
+        'textarea[name="descriptionTask"]'
       ).value;
-      const dateTask = this.form.querySelector('input[name="time"]').value;
+      const dateTask = this.form.querySelector('input[name="timeTask"]').value;
       const stateTask = this.form.querySelector(
         'select[name="stateTask"]'
       ).value;
 
-      if (priorityTask && titleTask && dateTask && dateTask) {
-        handler(priorityTask, titleTask, descriptionTask, dateTask, stateTask);
+      if (priorityTaskTag && titleTask && dateTask && dateTask) {
+        handler(priorityTaskTag, titleTask, descriptionTask, dateTask, stateTask);
 
         this.form.reset();
 
         document.getElementById("openModalCreateTask").style.display = "none";
-        this.form.querySelector('select[name="tagPriority"]').style.border =
+        this.form.querySelector('select[name="priorityTaskTag"]').style.border =
           "solid 1px black";
-        this.form.querySelector('input[name="title"]').style.border =
+        this.form.querySelector('input[name="titleTask"]').style.border =
           "solid 1px black";
-        this.form.querySelector('input[name="time"]').style.border =
+        this.form.querySelector('input[name="timeTask"]').style.border =
           "solid 1px black";
         this.form.querySelector('select[name="stateTask"]').style.border =
           "solid 1px black";
       } else {
-        this.form.querySelector('select[name="tagPriority"]').style.border =
+        this.form.querySelector('select[name="priorityTaskTag"]').style.border =
           "solid red";
-        this.form.querySelector('input[name="title"]').style.border =
+        this.form.querySelector('input[name="titleTask"]').style.border =
           "solid red";
-        this.form.querySelector('input[name="time"]').style.border =
+        this.form.querySelector('input[name="timeTask"]').style.border =
           "solid red";
         this.form.querySelector('select[name="stateTask"]').style.border =
           "solid red";

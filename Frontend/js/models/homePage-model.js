@@ -3,7 +3,7 @@ class ModelHomePage {
     this.tasks = JSON.parse(localStorage.getItem("tasks")) || [];
   }
 
-  addTask(tagPriority, title, descriptionTask, time, stateTask) {
+  addTask(priorityTaskTag, titleTask, descriptionTask, timeTask, stateTask) {
     let newId;
 
     // Gestion des ID pour les tâches en fonction de la disponibilité dans le localstorage
@@ -20,11 +20,11 @@ class ModelHomePage {
     // Créer l'objet de la nouvelle tâches
     const newTask = {
       id: newId,
-      priority: tagPriority,
-      title: title,
+      priority: priorityTaskTag,
+      title: titleTask,
       description: descriptionTask,
-      time: time,
-      state: stateTask
+      time: timeTask,
+      state: stateTask,
     };
 
     // Ajouter l'objet de la tâches à la liste
