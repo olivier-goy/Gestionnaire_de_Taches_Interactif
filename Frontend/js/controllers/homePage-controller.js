@@ -41,16 +41,17 @@ class ControllerHomePage {
     this.viewHomePage.percentageTask((numberCompletedTask * 100) / numberTask);
   }
 
+  priorityOrder = {
+    Basse: 0,
+    Moyenne: 1,
+    Elevée: 2,
+  };
+
   //Méthode pour trier par date et priorité
   sortTask(filterPriorityTask) {
     const filterPriorityTaskValue = filterPriorityTask.value;
     const tasks = this.modelHomePage.getTasks();
 
-/*     priorityOrder = {
-        "Basse" : 0,
-        "Moyenne" : 1,
-        "Elevée" : 2
-    } */
     if (filterPriorityTaskValue == "sort") {
       this.viewHomePage.renderTasks(tasks.sort((a, b) => a.id - b.id));
     } else if (filterPriorityTaskValue == "shorter") {
@@ -61,7 +62,19 @@ class ControllerHomePage {
       this.viewHomePage.renderTasks(
         tasks.sort((a, b) => new Date(b.time) - new Date(a.time))
       );
-    } else if (filterPriorityTaskValue == "low") {
+    } else if (filterPriorityTaskValue == "low") {        
+      const sortedTasks = tasks.sort((a, b) => {
+        const priorityDiff =
+          this.priorityOrder[a.priority] -
+          this.priorityOrder[b.priority];
+
+        this.isAscendingPriority ? priorityDiff : -priorityDiff;        
+      });
+              console.log(sortedTasks);
+
+      this.isAscendingPriority = !this.isAscendingPriority;
+
+      this.viewHomePage.renderTasks(sortedTasks);
     } else if (filterPriorityTaskValue == "top") {
     }
   }
