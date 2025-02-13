@@ -29,10 +29,10 @@ class ViewHomePage {
       h3TitleCard.textContent = task.title;
       const divDescriptionCard = document.createElement("div");
       divDescriptionCard.classList = "descriptionCard";
-      const h3DescriptionCard = document.createElement("h3");
-      h3DescriptionCard.textContent = "Description :";
-      const pDescriptionCard = document.createElement("p");
-      pDescriptionCard.textContent = task.description;
+      divDescriptionCard.innerHTML = `
+      <h3>Description :</h3>
+      <p>${task.description}</p>
+      `
       const divDueDataCard = document.createElement("div");
       divDueDataCard.classList = "dueDataCard";
       const h3DueDataCard = document.createElement("h3");
@@ -45,8 +45,6 @@ class ViewHomePage {
       divCardInProgress.appendChild(divTagAndModificationCard);
       divTitleCard.appendChild(h3TitleCard);
       divCardInProgress.appendChild(divTitleCard);
-      divDescriptionCard.appendChild(h3DescriptionCard);
-      divDescriptionCard.appendChild(pDescriptionCard);
       divCardInProgress.appendChild(divDescriptionCard);
       divDueDataCard.appendChild(h3DueDataCard);
       divCardInProgress.appendChild(divDueDataCard);
@@ -73,9 +71,20 @@ class ViewHomePage {
         tasks.forEach((task) => {
             if(task.state == "inProgress") {
                 document.getElementById("cardCompleted").style.display = "none";
+                document.getElementById("cardInTask").style.display = "block";
             }
             
         });
+    });
+
+    const btnFilterCompletedTask = document.getElementById("filterCompletedTask");
+    btnFilterCompletedTask.addEventListener("click", function() {
+        tasks.forEach((task) => {
+            if(task.state == "finish") {
+                document.getElementById("cardInTask").style.display = "none";
+                document.getElementById("cardCompleted").style.display = "block";
+            }
+        })
     });
   }
 
