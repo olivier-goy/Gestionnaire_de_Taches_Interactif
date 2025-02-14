@@ -12,6 +12,7 @@ class ControllerHomePage {
     this.viewHomePage.searchBarTask(this.searchTasks.bind(this));
     this.viewHomePage.filterTask(this.modelHomePage.getTasks());
     this.viewHomePage.modalCreateTask();
+    this.viewHomePage.bindDeletedTask(this.handleDeltedTask.bind(this))
 
     this.calPercentageTask();
   }
@@ -28,6 +29,7 @@ class ControllerHomePage {
 
     // Mettre à jour l'affichage
     this.viewHomePage.renderTasks(this.modelHomePage.getTasks());
+    this.viewHomePage.bindDeletedTask(this.handleDeltedTask.bind(this));
     this.calPercentageTask();
   }
 
@@ -60,10 +62,14 @@ class ControllerHomePage {
   calPercentageTask() {
     const tasks = this.modelHomePage.getTasks();
     const numberTask = tasks.length;
-    const numberCompletedTask = tasks.filter(
-      (task) => task.state == "finish"
-    ).length;
-    this.viewHomePage.percentageTask((numberCompletedTask * 100) / numberTask);
+    const numberCompletedTask = tasks.filter((task) => task.state == "finish").length;
+    if(numberTask) {
+        this.viewHomePage.percentageTask((numberCompletedTask * 100) / numberTask);
+    } else {
+        this.viewHomePage.percentageTask(0)
+    }
+    this.viewHomePage.bindDeletedTask(this.handleDeltedTask.bind(this));
+
   }
 
   //Méthode pour trier par date et priorité
@@ -83,6 +89,9 @@ class ControllerHomePage {
       this.viewHomePage.renderTasks(
         tasks.sort((a, b) => new Date(a.time) - new Date(b.time))
       );
+      console.log(this.viewHomePage.renderTasks(
+        tasks.sort((a, b) => new Date(a.time) - new Date(b.time))
+      ))
     } else if (filterPriorityTaskValue == "longest") {
       this.viewHomePage.renderTasks(
         tasks.sort((a, b) => new Date(b.time) - new Date(a.time))
@@ -113,6 +122,14 @@ class ControllerHomePage {
       );
       this.viewHomePage.renderTasks(filterHigtPriority);
     }
+    
+    this.viewHomePage.bindDeletedTask(this.handleDeltedTask.bind(this));
+  }
+  handleDeltedTask(taskId) {    
+    this.modelHomePage.deleteTask(taskId);
+    this.viewHomePage.renderTasks(this.modelHomePage.getTasks());
+    this.viewHomePage.bindDeletedTask(this.handleDeltedTask.bind(this));
+    this.calPercentageTask()
   }
 }
 

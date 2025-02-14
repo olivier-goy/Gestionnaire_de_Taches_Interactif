@@ -25,13 +25,10 @@ class ViewHomePage {
       const btnModificationCard = document.createElement("button");
       btnModificationCard.innerText = "Modifier"
       const btnDeletedCard = document.createElement("button");
-      btnDeletedCard.innerText = "Supprimer"
-      //const optionInitCard = document.createElement("option");
-      //optionInitCard.innerText = "...";
-      //const optionModificationCard = document.createElement("option");
-      //optionModificationCard.innerText = "Modifiere";
-      //const optionDeletedCard = document.createElement("option");
-      //optionDeletedCard.innerText = "Supprimer";
+      btnDeletedCard.innerText = "Supprimer";
+      btnDeletedCard.id = task.id;
+      btnDeletedCard.classList = "deletedTask"
+
 
       const divTitleCard = document.createElement("div");
       divTitleCard.classList = "titleCard";
@@ -203,6 +200,14 @@ class ViewHomePage {
           "solid red";
         alert("les champs en rouge sont obligatoire");
       }
+    });
+  }
+
+  bindDeletedTask(handler) {
+    document.querySelectorAll(".deletedTask").forEach(button => {
+            button.addEventListener("click", function (event) {
+              handler(event.currentTarget.id);
+            });
     });
   }
 }

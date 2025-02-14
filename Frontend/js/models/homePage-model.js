@@ -43,6 +43,20 @@ class ModelHomePage {
   getTasks() {
     return this.tasks;
   }
+
+  deleteTask(taskId) {
+
+    const index = this.tasks.findIndex((task) => task.id == taskId);
+
+    if (index !== -1) {
+        this.tasks.splice(index, 1);
+
+        localStorage.setItem("tasks", JSON.stringify(this.tasks));
+    } else {
+        console.error("Tâches non trouver")
+    }
+
+  }
 }
 
 export default ModelHomePage;
