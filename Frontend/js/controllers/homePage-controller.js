@@ -41,41 +41,29 @@ class ControllerHomePage {
     this.viewHomePage.percentageTask((numberCompletedTask * 100) / numberTask);
   }
 
-  priorityOrder = {
-    Basse: 0,
-    Moyenne: 1,
-    Elevée: 2,
-  };
-
   //Méthode pour trier par date et priorité
   sortTask(filterPriorityTask) {
     const filterPriorityTaskValue = filterPriorityTask.value;
     const tasks = this.modelHomePage.getTasks();
+    
+    const priorityOrder = {
+      Basse: 1,
+      Moyenne: 2,
+      Elevée: 3,
+    };
 
     if (filterPriorityTaskValue == "sort") {
       this.viewHomePage.renderTasks(tasks.sort((a, b) => a.id - b.id));
     } else if (filterPriorityTaskValue == "shorter") {
-      this.viewHomePage.renderTasks(
-        tasks.sort((a, b) => new Date(a.time) - new Date(b.time))
-      );
+      this.viewHomePage.renderTasks(tasks.sort((a, b) => new Date(a.time) - new Date(b.time)));
     } else if (filterPriorityTaskValue == "longest") {
-      this.viewHomePage.renderTasks(
-        tasks.sort((a, b) => new Date(b.time) - new Date(a.time))
-      );
-    } else if (filterPriorityTaskValue == "low") {        
-      const sortedTasks = tasks.sort((a, b) => {
-        const priorityDiff =
-          this.priorityOrder[a.priority] -
-          this.priorityOrder[b.priority];
-
-        this.isAscendingPriority ? priorityDiff : -priorityDiff;        
-      });
-              console.log(sortedTasks);
-
-      this.isAscendingPriority = !this.isAscendingPriority;
-
-      this.viewHomePage.renderTasks(sortedTasks);
+      this.viewHomePage.renderTasks(tasks.sort((a, b) => new Date(b.time) - new Date(a.time)));
+    } else if (filterPriorityTaskValue == "low") {
+      const sortedIncreasingTasks = tasks.sort((a, b) => priorityOrder[a.priority] - priorityOrder[b.priority]);
+      this.viewHomePage.renderTasks(sortedIncreasingTasks);
     } else if (filterPriorityTaskValue == "top") {
+      const sortedDecreaseTasks = tasks.sort((a, b) => priorityOrder[b.priority] - priorityOrder[a.priority]);
+      this.viewHomePage.renderTasks(sortedDecreaseTasks);
     }
   }
 }
