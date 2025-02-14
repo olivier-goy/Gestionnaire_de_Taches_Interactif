@@ -21,8 +21,18 @@ class ViewHomePage {
       tags.textContent = task.priority;
       const divBtnModificationCard = document.createElement("div");
       divBtnModificationCard.classList = "modificationCard";
+
       const btnModificationCard = document.createElement("button");
-      btnModificationCard.textContent = "...";
+      btnModificationCard.innerText = "Modifier"
+      const btnDeletedCard = document.createElement("button");
+      btnDeletedCard.innerText = "Supprimer"
+      //const optionInitCard = document.createElement("option");
+      //optionInitCard.innerText = "...";
+      //const optionModificationCard = document.createElement("option");
+      //optionModificationCard.innerText = "Modifiere";
+      //const optionDeletedCard = document.createElement("option");
+      //optionDeletedCard.innerText = "Supprimer";
+
       const divTitleCard = document.createElement("div");
       divTitleCard.classList = "titleCard";
       const h3TitleCard = document.createElement("h3");
@@ -39,7 +49,9 @@ class ViewHomePage {
       h3DueDataCard.textContent = `Date de fin: ${task.time}`;
 
       divTagsCard.appendChild(tags);
+
       divBtnModificationCard.appendChild(btnModificationCard);
+      divBtnModificationCard.appendChild(btnDeletedCard);
       divTagAndModificationCard.appendChild(divTagsCard);
       divTagAndModificationCard.appendChild(divBtnModificationCard);
       divCardInProgress.appendChild(divTagAndModificationCard);
@@ -59,11 +71,11 @@ class ViewHomePage {
   }
 
   // Ecoute de la barre de recherche des Tâches
-  searchBarTask(handler){
+  searchBarTask(handler) {
     const btnSearchBar = document.getElementById("searchBar");
-    btnSearchBar.addEventListener("click", function() {        
-        handler(document.getElementById("searchTitle").value);
-    })
+    btnSearchBar.addEventListener("click", function () {
+      handler(document.getElementById("searchTitle").value);
+    });
   }
 
   // Filtrer les Tâches pour toutes ou pour en cours ou terminée

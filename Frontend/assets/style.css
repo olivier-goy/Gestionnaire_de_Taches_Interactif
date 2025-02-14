@@ -111,6 +111,7 @@ main {
   flex: 1;
 }
 .modificationCard {
+  display: flex;
   text-align: right;
   flex: 1;
 }
