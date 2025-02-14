@@ -45,7 +45,7 @@ class ControllerHomePage {
   sortTask(filterPriorityTask) {
     const filterPriorityTaskValue = filterPriorityTask.value;
     const tasks = this.modelHomePage.getTasks();
-    
+
     const priorityOrder = {
       Basse: 1,
       Moyenne: 2,
@@ -64,6 +64,15 @@ class ControllerHomePage {
     } else if (filterPriorityTaskValue == "top") {
       const sortedDecreaseTasks = tasks.sort((a, b) => priorityOrder[b.priority] - priorityOrder[a.priority]);
       this.viewHomePage.renderTasks(sortedDecreaseTasks);
+    } else if (filterPriorityTaskValue == "lowPriority") {
+      const filterLowPriority = tasks.filter((task) => task.priority == "Basse");
+      this.viewHomePage.renderTasks(filterLowPriority);
+    } else if (filterPriorityTaskValue == "mediumPriority") {
+      const filterMediumPriority = tasks.filter((task) => task.priority == "Moyenne");
+      this.viewHomePage.renderTasks(filterMediumPriority);
+    } else if (filterPriorityTaskValue == "higtPriority") {
+      const filterHigtPriority = tasks.filter((task) => task.priority == "Elevée");
+      this.viewHomePage.renderTasks(filterHigtPriority);
     }
   }
 }

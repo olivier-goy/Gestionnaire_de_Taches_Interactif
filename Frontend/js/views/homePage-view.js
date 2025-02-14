@@ -56,6 +56,8 @@ class ViewHomePage {
         this.taskListCompleted.appendChild(divCardInProgress);
       }
     });
+          console.log(tasks);
+
   }
 
   //filtrer les Tâches
