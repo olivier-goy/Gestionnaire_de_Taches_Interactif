@@ -56,11 +56,17 @@ class ViewHomePage {
         this.taskListCompleted.appendChild(divCardInProgress);
       }
     });
-          console.log(tasks);
-
   }
 
-  //filtrer les Tâches
+  // Ecoute de la barre de recherche des Tâches
+  searchBarTask(handler){
+    const btnSearchBar = document.getElementById("searchBar");
+    btnSearchBar.addEventListener("click", function() {        
+        handler(document.getElementById("searchTitle").value);
+    })
+  }
+
+  // Filtrer les Tâches pour toutes ou pour en cours ou terminée
   filterTask(tasks) {
     const btnFilterAllTask = document.getElementById("filterAllTask");
     btnFilterAllTask.addEventListener("click", function () {
@@ -135,7 +141,7 @@ class ViewHomePage {
     });
   }
 
-  // Récupération des données du form pour la création de tâches
+  // Visuel des données du form pour la création de tâches
   bindAddTask(handler) {
     const btnAddTask = document.getElementById("btnSubmitTask");
     btnAddTask.addEventListener("click", function (event) {
