@@ -6,6 +6,24 @@ class ViewHomePage {
     this.progressionBar = document.getElementById("progressionBar");
   }
 
+  // Visuel de la barre de progression
+  percentageTask(percentageTask) {
+    this.progressionBar.innerHTML = "";
+
+    if (percentageTask) {
+      const titleProgression = document.createElement("h3");
+      titleProgression.innerText = `Progression à ${Math.round(
+        percentageTask
+      )}%`;
+      const bar = document.createElement("progress");
+      bar.max = 100;
+      bar.value = percentageTask;
+      bar.innerText = `${percentageTask}%`;
+
+      this.progressionBar.appendChild(titleProgression);
+      this.progressionBar.appendChild(bar);
+    }
+  }
   // Visuel de la carte des tâches
   renderTasks(tasks) {
     this.taskListInProgress.innerHTML = "";
@@ -23,12 +41,13 @@ class ViewHomePage {
       divBtnModificationCard.classList = "modificationCard";
 
       const btnModificationCard = document.createElement("button");
-      btnModificationCard.innerText = "Modifier"
+      btnModificationCard.innerText = "Modifier";
+      btnModificationCard.id = task.id;
+      btnModificationCard.classList = "modifiedTask";
       const btnDeletedCard = document.createElement("button");
       btnDeletedCard.innerText = "Supprimer";
       btnDeletedCard.id = task.id;
-      btnDeletedCard.classList = "deletedTask"
-
+      btnDeletedCard.classList = "deletedTask";
 
       const divTitleCard = document.createElement("div");
       divTitleCard.classList = "titleCard";
@@ -116,40 +135,6 @@ class ViewHomePage {
     });
   }
 
-  // Affichage de la barre de progression
-  percentageTask(percentageTask) {
-    this.progressionBar.innerHTML = "";
-
-    const labelProgression = document.createElement("label");
-    labelProgression.id = "bar";
-    labelProgression.innerText = "Progression dans les Tâches : ";
-    const bar = document.createElement("progress");
-    bar.id = "bar";
-    bar.max = 100;
-    bar.value = percentageTask;
-    bar.innerText = `${percentageTask}%`;
-
-    this.progressionBar.appendChild(labelProgression);
-    this.progressionBar.appendChild(bar);
-  }
-
-  // Ouverture et fermeture de la modal pour la création de tâches
-  modalCreateTask() {
-    document.getElementById("openModalCreateTask").style.display = "none";
-
-    const modal = document.getElementById("openModalCreateTask");
-    const openModal = document.getElementById("createTaskButton");
-    openModal.addEventListener("click", function () {
-      modal.style.display = "block";
-    });
-
-    window.addEventListener("click", function (event) {
-      if (event.target == modal) {
-        modal.style.display = "none";
-      }
-    });
-  }
-
   // Visuel des données du form pour la création de tâches
   bindAddTask(handler) {
     const btnAddTask = document.getElementById("btnSubmitTask");
@@ -203,11 +188,40 @@ class ViewHomePage {
     });
   }
 
+  bindModifiedTask(handler) {
+    document.querySelectorAll(".modifiedTask").forEach((button) => {
+      button.addEventListener("click", function (event) {
+        handler(event.currentTarget.id);
+      });
+    });
+  }
+
   bindDeletedTask(handler) {
-    document.querySelectorAll(".deletedTask").forEach(button => {
-            button.addEventListener("click", function (event) {
-              handler(event.currentTarget.id);
-            });
+    document.querySelectorAll(".deletedTask").forEach((button) => {
+      button.addEventListener("click", function (event) {
+        handler(event.currentTarget.id);
+      });
+    });
+  }
+
+  // Ouverture et fermeture de la modal pour la création de tâches
+  modalTask(btn) {
+    document.getElementById("openModalCreateTask").style.display = "none";
+
+    const modal = document.getElementById("openModalCreateTask");
+    btn ? modal.style.display = "block" : modal.style.display = "none";
+    const openModal = document.getElementById("createTaskButton");
+    openModal.addEventListener("click", function () {
+      modal.style.display = "block";
+    });
+    if(btn) {
+      modal.style.display = "block";
+    }
+
+    window.addEventListener("click", function (event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
     });
   }
 }

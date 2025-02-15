@@ -6,13 +6,14 @@ class ControllerHomePage {
     this.viewHomePage = new ViewHomePage();
     this.modelHomePage = new ModelHomePage();
 
+    this.viewHomePage.bindModifiedTask(this.handleModifiedTask.bind(this))
     this.viewHomePage.bindAddTask(this.handleAddTask.bind(this));
     this.viewHomePage.sortFilterTask(this.sortTask.bind(this));
     this.viewHomePage.renderTasks(this.modelHomePage.getTasks());
     this.viewHomePage.searchBarTask(this.searchTasks.bind(this));
     this.viewHomePage.filterTask(this.modelHomePage.getTasks());
-    this.viewHomePage.modalCreateTask();
     this.viewHomePage.bindDeletedTask(this.handleDeltedTask.bind(this))
+    this.viewHomePage.modalTask();
 
     this.calPercentageTask();
   }
@@ -30,6 +31,7 @@ class ControllerHomePage {
     // Mettre à jour l'affichage
     this.viewHomePage.renderTasks(this.modelHomePage.getTasks());
     this.viewHomePage.bindDeletedTask(this.handleDeltedTask.bind(this));
+    this.viewHomePage.bindModifiedTask(this.handleModifiedTask.bind(this));
     this.calPercentageTask();
   }
 
@@ -56,6 +58,8 @@ class ControllerHomePage {
     }
 
     this.viewHomePage.renderTasks(researchTitle);
+    this.viewHomePage.bindDeletedTask(this.handleDeltedTask.bind(this));
+    this.viewHomePage.bindModifiedTask(this.handleModifiedTask.bind(this));
   }
 
   // Méthode de calculer le pourcentage des tâches
@@ -68,8 +72,9 @@ class ControllerHomePage {
     } else {
         this.viewHomePage.percentageTask(0)
     }
-    this.viewHomePage.bindDeletedTask(this.handleDeltedTask.bind(this));
 
+    this.viewHomePage.bindDeletedTask(this.handleDeltedTask.bind(this));
+    this.viewHomePage.bindModifiedTask(this.handleModifiedTask.bind(this));
   }
 
   //Méthode pour trier par date et priorité
@@ -89,9 +94,6 @@ class ControllerHomePage {
       this.viewHomePage.renderTasks(
         tasks.sort((a, b) => new Date(a.time) - new Date(b.time))
       );
-      console.log(this.viewHomePage.renderTasks(
-        tasks.sort((a, b) => new Date(a.time) - new Date(b.time))
-      ))
     } else if (filterPriorityTaskValue == "longest") {
       this.viewHomePage.renderTasks(
         tasks.sort((a, b) => new Date(b.time) - new Date(a.time))
@@ -122,9 +124,18 @@ class ControllerHomePage {
       );
       this.viewHomePage.renderTasks(filterHigtPriority);
     }
-    
+
     this.viewHomePage.bindDeletedTask(this.handleDeltedTask.bind(this));
+    this.viewHomePage.bindModifiedTask(this.handleModifiedTask.bind(this));
   }
+
+  handleModifiedTask(taskId) { 
+    this.viewHomePage.renderTasks(this.modelHomePage.getTasks());
+    this.viewHomePage.bindModifiedTask(this.handleModifiedTask.bind(this));
+    this.viewHomePage.bindDeletedTask(this.handleDeltedTask.bind(this));
+    this.viewHomePage.modalTask(taskId);
+  }
+
   handleDeltedTask(taskId) {    
     this.modelHomePage.deleteTask(taskId);
     this.viewHomePage.renderTasks(this.modelHomePage.getTasks());

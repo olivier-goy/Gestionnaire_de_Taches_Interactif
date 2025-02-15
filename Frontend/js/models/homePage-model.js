@@ -45,7 +45,6 @@ class ModelHomePage {
   }
 
   deleteTask(taskId) {
-
     const index = this.tasks.findIndex((task) => task.id == taskId);
 
     if (index !== -1) {
@@ -55,7 +54,9 @@ class ModelHomePage {
     } else {
         console.error("Tâches non trouver")
     }
+  }
 
+  modifiedTask(taskId) {
   }
 }
 

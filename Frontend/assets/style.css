@@ -91,6 +91,10 @@ main {
 .ProgressionBarSection {
   margin: 20px;
 }
+progress {
+  height: 30px;
+  width: 200px;
+}
 .containerInProgressAndCompleted {
   display: flex;
 }
