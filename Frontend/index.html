@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Gestionnaire</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./assets/style.css" />
+    <script src="./js/main.js" type="module"></script>
+  </head>
+  <body>
+    <header>
+      <h1>Gestionnaire</h1>
+    </header>
+    <main>
+      <div class="row">
+        <section class="searchAndCreateSection">
+          <div class="taskCreationButton">
+            <button id="createTaskButton">Créer</button>
+          </div>
+          <div id="openModalCreateTask" class="modalCreateTask">
+            <div class="contentModalCreateTask">
+                <h2>Ajout de Tâches</h2>
+                <form id="taskForm">
+                  <select name="priorityTaskTag">
+                    <option value="Basse">Basse</option>
+                    <option value="Moyenne">Moyenne</option>
+                    <option value="Elevée">Elevée</option>
+                  </select>
+                  <br>
+                  <input type="text" name="titleTask" placeholder="Titre" required />
+                  <br>
+                  <textarea type="text" name="descriptionTask" rows="5" cols="33" maxlength="255" placeholder="Description"></textarea>
+                  <br>
+                  <input type="date" name="timeTask" required />
+                  <br>
+                  <select name="stateTask">
+                    <option value="inProgress">En Cours</option>
+                    <option value="finish">Terminé</option>
+                  </select>
+                  <div id="btnSubmit"></div>
+                </form>
+            </div>
+          </div>
+          <div class="searchBar">
+            <input type="search" name="" id="searchTitle" placeholder="Recherche" />
+            <button id="searchBar">Recherche</button>
+          </div>
+          <div class="filterButton">
+            <button id="filterAllTask">Toutes</button>
+            <button id="filterInPorgressTask">En Cours</button>
+            <button id="filterCompletedTask">Terminées</button>
+            <select id="filterPriorityTask">
+              <option value="sort">Trier / reset</option>
+              <option value="shorter">Date court</option>
+              <option value="longest">Date longue</option>
+              <option value="low">Croissant priorité</option>
+              <option value="top">Décroissant priorité</option>
+              <option value="lowPriority">Priorité basse</option>
+              <option value="mediumPriority">Priorité moyenne</option>
+              <option value="higtPriority">Priorité élevée</option>
+            </select>
+          </div>
+        </section>
+        <section id="progressionBar" class="ProgressionBarSection"></section>
+        <section class="containerInProgressAndCompleted">
+          <div class="inProgressSection">
+            <h2>En Cours</h2>
+            <div id="cardInTask"></div>
+          </div>
+          <div class="completedSection">
+            <h2>Terminés</h2>
+            <div id="cardCompleted"></div>
+          </div>
+        </section>
+      </div>
+    </main>
+    <footer></footer>
+  </body>
+</html>
