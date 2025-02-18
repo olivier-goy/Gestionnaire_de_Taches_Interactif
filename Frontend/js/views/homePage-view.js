@@ -4,6 +4,7 @@ class ViewHomePage {
     this.taskListInProgress = document.getElementById("cardInTask");
     this.taskListCompleted = document.getElementById("cardCompleted");
     this.progressionBar = document.getElementById("progressionBar");
+    this.btnSubmit = document.getElementById("btnSubmit");
   }
 
   // Visuel de la barre de progression
@@ -55,10 +56,7 @@ class ViewHomePage {
       h3TitleCard.textContent = task.title;
       const divDescriptionCard = document.createElement("div");
       divDescriptionCard.classList = "descriptionCard";
-      divDescriptionCard.innerHTML = `
-      <h3>Description :</h3>
-      <p>${task.description}</p>
-      `;
+      divDescriptionCard.innerHTML = `<h3>Description :</h3> <p>${task.description}</p>`;
       const divDueDataCard = document.createElement("div");
       divDueDataCard.classList = "dueDataCard";
       const h3DueDataCard = document.createElement("h3");
@@ -86,10 +84,12 @@ class ViewHomePage {
     });
   }
 
+  
+
   // Ecoute de la barre de recherche des Tâches
   searchBarTask(handler) {
     const btnSearchBar = document.getElementById("searchBar");
-    btnSearchBar.addEventListener("click", function () {
+    btnSearchBar.addEventListener("click", () => {
       handler(document.getElementById("searchTitle").value);
     });
   }
@@ -97,7 +97,7 @@ class ViewHomePage {
   // Filtrer les Tâches pour toutes ou pour en cours ou terminée
   filterTask(tasks) {
     const btnFilterAllTask = document.getElementById("filterAllTask");
-    btnFilterAllTask.addEventListener("click", function () {
+    btnFilterAllTask.addEventListener("click", () => {
       document.getElementById("cardInTask").style.display = "block";
       document.getElementById("cardCompleted").style.display = "block";
     });
@@ -105,7 +105,7 @@ class ViewHomePage {
     const btnFilterInProgressTask = document.getElementById(
       "filterInPorgressTask"
     );
-    btnFilterInProgressTask.addEventListener("click", function () {
+    btnFilterInProgressTask.addEventListener("click", () => {
       tasks.forEach((task) => {
         if (task.state == "inProgress") {
           document.getElementById("cardCompleted").style.display = "none";
@@ -117,7 +117,7 @@ class ViewHomePage {
     const btnFilterCompletedTask = document.getElementById(
       "filterCompletedTask"
     );
-    btnFilterCompletedTask.addEventListener("click", function () {
+    btnFilterCompletedTask.addEventListener("click", () => {
       tasks.forEach((task) => {
         if (task.state == "finish") {
           document.getElementById("cardInTask").style.display = "none";
@@ -130,100 +130,155 @@ class ViewHomePage {
   //Ecoute pour trier par date les tâches.
   sortFilterTask(handler) {
     const btnFilterPriorityTask = document.getElementById("filterPriorityTask");
-    btnFilterPriorityTask.addEventListener("change", function () {
+    btnFilterPriorityTask.addEventListener("change", () => {
       handler(btnFilterPriorityTask);
     });
   }
 
-  // Visuel des données du form pour la création de tâches
-  bindAddTask(handler) {
-    const btnAddTask = document.getElementById("btnSubmitTask");
-    btnAddTask.addEventListener("click", function (event) {
-      event.preventDefault();
-      const priorityTaskTag = this.form.querySelector(
-        'select[name="priorityTaskTag"]'
-      ).value;
-      const titleTask = this.form.querySelector(
-        'input[name="titleTask"]'
-      ).value;
-      const descriptionTask = this.form.querySelector(
-        'textarea[name="descriptionTask"]'
-      ).value;
-      const dateTask = this.form.querySelector('input[name="timeTask"]').value;
-      const stateTask = this.form.querySelector(
-        'select[name="stateTask"]'
-      ).value;
+  // Ecoute pour la modification d'une tâche
+  bindModalModifiedTask(handler) {
+    document.querySelectorAll(".modifiedTask").forEach((button) => {
+      button.addEventListener("click", (event) => {
+        event.preventDefault();
+        handler(event.currentTarget.id);
+        document.getElementById("openModalCreateTask").style.display = "block"
+      });
+    }); 
+  }
+  
+  bindModifiedTask(handler, task) {
+    if(task) {
+      this.form.querySelector('select[name="priorityTaskTag"]').value = task.priority;
+      this.form.querySelector('input[name="titleTask"]').value = task.title;
+      this.form.querySelector('textarea[name="descriptionTask"]').value = task.description;
+      this.form.querySelector('input[name="timeTask"]').value = task.time;
+      this.form.querySelector('select[name="stateTask"]').value = task.state;
+    }
 
-      if (priorityTaskTag && titleTask && dateTask && dateTask) {
+      this.btnSubmit.innerHTML = "";
+
+      const addBtnSubmit = document.getElementById("btnSubmit");
+
+      const btnModifiedTask = document.createElement("button");
+      btnModifiedTask.innerText = "Modifier";
+      btnModifiedTask.type = "submit";
+      btnModifiedTask.id = "btnModifiedTask";
+
+      addBtnSubmit.appendChild(btnModifiedTask)
+
+      const modifiedTask = document.getElementById("btnModifiedTask");
+      modifiedTask.addEventListener("click", () => {
+        const priorityTaskTag = this.form.querySelector('select[name="priorityTaskTag"]').value;
+        const titleTask = this.form.querySelector('input[name="titleTask"]').value;
+        const descriptionTask = this.form.querySelector('textarea[name="descriptionTask"]').value;
+        const dateTask = this.form.querySelector('input[name="timeTask"]').value;
+        const stateTask = this.form.querySelector('select[name="stateTask"]').value;
+  
         handler(
+          task.id,
           priorityTaskTag,
           titleTask,
           descriptionTask,
           dateTask,
           stateTask
         );
-
-        this.form.reset();
-
-        document.getElementById("openModalCreateTask").style.display = "none";
-        this.form.querySelector('select[name="priorityTaskTag"]').style.border =
-          "solid 1px black";
-        this.form.querySelector('input[name="titleTask"]').style.border =
-          "solid 1px black";
-        this.form.querySelector('input[name="timeTask"]').style.border =
-          "solid 1px black";
-        this.form.querySelector('select[name="stateTask"]').style.border =
-          "solid 1px black";
-      } else {
-        this.form.querySelector('select[name="priorityTaskTag"]').style.border =
-          "solid red";
-        this.form.querySelector('input[name="titleTask"]').style.border =
-          "solid red";
-        this.form.querySelector('input[name="timeTask"]').style.border =
-          "solid red";
-        this.form.querySelector('select[name="stateTask"]').style.border =
-          "solid red";
-        alert("les champs en rouge sont obligatoire");
-      }
-    });
-  }
-
-  bindModifiedTask(handler) {
-    document.querySelectorAll(".modifiedTask").forEach((button) => {
-      button.addEventListener("click", function (event) {
-        handler(event.currentTarget.id);
       });
-    });
   }
 
+  // Ecoute pour la suppression d'une tâche
   bindDeletedTask(handler) {
     document.querySelectorAll(".deletedTask").forEach((button) => {
-      button.addEventListener("click", function (event) {
+      button.addEventListener("click", (event) => {
+        event.preventDefault();
         handler(event.currentTarget.id);
       });
     });
   }
 
-  // Ouverture et fermeture de la modal pour la création de tâches
-  modalTask(btn) {
+  // Fermeture et initialisation de la modal de création et de modification des tâches
+  modalTask() {
     document.getElementById("openModalCreateTask").style.display = "none";
 
     const modal = document.getElementById("openModalCreateTask");
-    btn ? modal.style.display = "block" : modal.style.display = "none";
-    const openModal = document.getElementById("createTaskButton");
-    openModal.addEventListener("click", function () {
-      modal.style.display = "block";
-    });
-    if(btn) {
-      modal.style.display = "block";
-    }
-
-    window.addEventListener("click", function (event) {
+    window.addEventListener("click", (event) => {
       if (event.target == modal) {
         modal.style.display = "none";
+        document.getElementById("taskForm").reset();
+        document.getElementById("openModalCreateTask").style.display = "none";
+        this.form.querySelector('select[name="priorityTaskTag"]').style.border = "solid 1px black";
+        this.form.querySelector('input[name="titleTask"]').style.border = "solid 1px black";
+        this.form.querySelector('input[name="timeTask"]').style.border = "solid 1px black";
+        this.form.querySelector('select[name="stateTask"]').style.border = "solid 1px black";
       }
     });
   }
+
+  // Visuel des données du form pour la création de tâches
+  bindAddTask(handler) {
+    const modal = document.getElementById("openModalCreateTask");
+
+    const openAddModal = document.getElementById("createTaskButton");
+    openAddModal.addEventListener("click", () => {
+      modal.style.display = "block";
+      this.btnSubmit.innerHTML = "";
+
+      const addBtnSubmit = document.getElementById("btnSubmit");
+
+      const btnAddTask = document.createElement("button");
+      btnAddTask.innerText = "Valider";
+      btnAddTask.type = "submit";
+      btnAddTask.id = "btnAddTask";
+      
+      addBtnSubmit.appendChild(btnAddTask);
+
+      const btnAddSubmit = document.getElementById("btnAddTask");
+      btnAddSubmit.addEventListener("click", (event) => {
+        event.preventDefault();
+        const priorityTask = this.form.querySelector('select[name="priorityTaskTag"]').value;
+        const titleTask = this.form.querySelector('input[name="titleTask"]').value;
+        const descriptionTask = this.form.querySelector('textarea[name="descriptionTask"]').value;
+        const dateTask = this.form.querySelector('input[name="timeTask"]').value;
+        const stateTask = this.form.querySelector('select[name="stateTask"]').value;
+  
+        //condition pour la gestion des champs vide et les rendres obligatoire
+        if (priorityTask && titleTask && dateTask && dateTask) {
+          handler(
+            priorityTask,
+            titleTask,
+            descriptionTask,
+            dateTask,
+            stateTask
+          );
+  
+          this.form.reset();
+  
+          document.getElementById("openModalCreateTask").style.display = "none";
+          this.form.querySelector('select[name="priorityTaskTag"]').style.border =
+            "solid 1px black";
+          this.form.querySelector('input[name="titleTask"]').style.border =
+            "solid 1px black";
+          this.form.querySelector('input[name="timeTask"]').style.border =
+            "solid 1px black";
+          this.form.querySelector('select[name="stateTask"]').style.border =
+            "solid 1px black";
+        } else {
+          this.form.querySelector('select[name="priorityTaskTag"]').style.border =
+            "solid red";
+          this.form.querySelector('input[name="titleTask"]').style.border =
+            "solid red";
+          this.form.querySelector('input[name="timeTask"]').style.border =
+            "solid red";
+          this.form.querySelector('select[name="stateTask"]').style.border =
+            "solid red";
+          alert("les champs en rouge sont obligatoire");
+        }
+      });
+
+    });
+    
+  }
+
+  
 }
 
 export default ViewHomePage;

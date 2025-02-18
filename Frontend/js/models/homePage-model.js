@@ -44,6 +44,31 @@ class ModelHomePage {
     return this.tasks;
   }
 
+  // Récupérer une tâches par sont id
+  getTaskId (taskId) {
+   return this.tasks.find(task => task.id == taskId);
+  }
+
+  updateTask(taskId, priorityTask, titleTask, descriptionTask, dateTask, stateTask) {
+    const modifiedTask= {
+      id: taskId,
+      priority: priorityTask,
+      title: titleTask,
+      description: descriptionTask,
+      time: dateTask,
+      state: stateTask,
+    }
+    
+    const index = this.tasks.findIndex(task => task.id == taskId);
+
+    if(index !== -1) {
+      this.tasks[index] = {...this.tasks[index], ...modifiedTask };
+      localStorage.setItem("tasks", JSON.stringify(this.tasks))
+    }
+
+  }
+
+  // Supprimer un tâches par sont id
   deleteTask(taskId) {
     const index = this.tasks.findIndex((task) => task.id == taskId);
 
@@ -51,12 +76,7 @@ class ModelHomePage {
         this.tasks.splice(index, 1);
 
         localStorage.setItem("tasks", JSON.stringify(this.tasks));
-    } else {
-        console.error("Tâches non trouver")
     }
-  }
-
-  modifiedTask(taskId) {
   }
 }
 

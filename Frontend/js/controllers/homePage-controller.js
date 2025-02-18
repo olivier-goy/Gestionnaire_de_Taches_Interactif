@@ -6,13 +6,14 @@ class ControllerHomePage {
     this.viewHomePage = new ViewHomePage();
     this.modelHomePage = new ModelHomePage();
 
-    this.viewHomePage.bindModifiedTask(this.handleModifiedTask.bind(this))
     this.viewHomePage.bindAddTask(this.handleAddTask.bind(this));
+    this.viewHomePage.bindModalModifiedTask(this.openModifiedTask.bind(this));
+    this.viewHomePage.bindModifiedTask(this.handleModifiedTask.bind(this))
     this.viewHomePage.sortFilterTask(this.sortTask.bind(this));
     this.viewHomePage.renderTasks(this.modelHomePage.getTasks());
     this.viewHomePage.searchBarTask(this.searchTasks.bind(this));
     this.viewHomePage.filterTask(this.modelHomePage.getTasks());
-    this.viewHomePage.bindDeletedTask(this.handleDeltedTask.bind(this))
+    this.viewHomePage.bindDeletedTask(this.handleDeltedTask.bind(this));
     this.viewHomePage.modalTask();
 
     this.calPercentageTask();
@@ -20,6 +21,7 @@ class ControllerHomePage {
 
   // Ajouter la tâche au modèle
   handleAddTask(priorityTask, titleTask, descriptionTask, dateTask, stateTask) {
+    console.log('coucou')
     this.modelHomePage.addTask(
       priorityTask,
       titleTask,
@@ -31,7 +33,7 @@ class ControllerHomePage {
     // Mettre à jour l'affichage
     this.viewHomePage.renderTasks(this.modelHomePage.getTasks());
     this.viewHomePage.bindDeletedTask(this.handleDeltedTask.bind(this));
-    this.viewHomePage.bindModifiedTask(this.handleModifiedTask.bind(this));
+    this.viewHomePage.bindModalModifiedTask(this.openModifiedTask.bind(this));
     this.calPercentageTask();
   }
 
@@ -49,32 +51,38 @@ class ControllerHomePage {
       return;
     }
 
-    const researchTitle = tasks.filter((task) => normalizeText(task.title.toLowerCase()).includes(searchBarValue));
+    const researchTitle = tasks.filter((task) =>
+      normalizeText(task.title.toLowerCase()).includes(searchBarValue)
+    );
 
     if (researchTitle.length === 0) {
       this.viewHomePage.renderTasks(tasks);
       alert("Aucune correspondance trouvée !");
       return;
     }
-
+    // Mettre à jour l'affichage
     this.viewHomePage.renderTasks(researchTitle);
     this.viewHomePage.bindDeletedTask(this.handleDeltedTask.bind(this));
-    this.viewHomePage.bindModifiedTask(this.handleModifiedTask.bind(this));
+    this.viewHomePage.bindModalModifiedTask(this.openModifiedTask.bind(this));
   }
 
   // Méthode de calculer le pourcentage des tâches
   calPercentageTask() {
     const tasks = this.modelHomePage.getTasks();
     const numberTask = tasks.length;
-    const numberCompletedTask = tasks.filter((task) => task.state == "finish").length;
-    if(numberTask) {
-        this.viewHomePage.percentageTask((numberCompletedTask * 100) / numberTask);
+    const numberCompletedTask = tasks.filter(
+      (task) => task.state == "finish"
+    ).length;
+    if (numberTask) {
+      this.viewHomePage.percentageTask(
+        (numberCompletedTask * 100) / numberTask
+      );
     } else {
-        this.viewHomePage.percentageTask(0)
+      this.viewHomePage.percentageTask(0);
     }
-
+    // Mettre à jour l'affichage
     this.viewHomePage.bindDeletedTask(this.handleDeltedTask.bind(this));
-    this.viewHomePage.bindModifiedTask(this.handleModifiedTask.bind(this));
+    this.viewHomePage.bindModalModifiedTask(this.openModifiedTask.bind(this));
   }
 
   //Méthode pour trier par date et priorité
@@ -124,23 +132,41 @@ class ControllerHomePage {
       );
       this.viewHomePage.renderTasks(filterHigtPriority);
     }
-
+    // Mettre à jour l'affichage
     this.viewHomePage.bindDeletedTask(this.handleDeltedTask.bind(this));
-    this.viewHomePage.bindModifiedTask(this.handleModifiedTask.bind(this));
+    this.viewHomePage.bindModalModifiedTask(this.openModifiedTask.bind(this));
   }
+  openModifiedTask(taskId) {
+    const getTaskId = this.modelHomePage.getTaskId(taskId);
 
-  handleModifiedTask(taskId) { 
+    // Mettre à jour l'affichage
     this.viewHomePage.renderTasks(this.modelHomePage.getTasks());
-    this.viewHomePage.bindModifiedTask(this.handleModifiedTask.bind(this));
+    this.viewHomePage.bindModalModifiedTask(this.openModifiedTask.bind(this));
     this.viewHomePage.bindDeletedTask(this.handleDeltedTask.bind(this));
-    this.viewHomePage.modalTask(taskId);
+    this.viewHomePage.bindModifiedTask(this.handleModifiedTask.bind(this), getTaskId);
   }
 
-  handleDeltedTask(taskId) {    
+  handleModifiedTask(taskId, priorityTask, titleTask, descriptionTask, dateTask, stateTask) {
+    this.modelHomePage.updateTask(
+      taskId,
+      priorityTask,
+      titleTask,
+      descriptionTask,
+      dateTask,
+      stateTask
+    );
+
+    this.viewHomePage.renderTasks(this.modelHomePage.getTasks());
+    this.viewHomePage.bindDeletedTask(this.handleDeltedTask.bind(this));
+    this.calPercentageTask();
+  }
+
+  handleDeltedTask(taskId) {
     this.modelHomePage.deleteTask(taskId);
+    // Mettre à jour l'affichage
     this.viewHomePage.renderTasks(this.modelHomePage.getTasks());
     this.viewHomePage.bindDeletedTask(this.handleDeltedTask.bind(this));
-    this.calPercentageTask()
+    this.calPercentageTask();
   }
 }
 
