@@ -2,26 +2,26 @@
 <html lang="fr">
   <head>
     <meta charset="UTF-8">
-    <title>Gestionnaire</title>
+    <title>Mon Gestionnaire</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./assets/style.css">
     <script src="./js/main.js" type="module"></script>
   </head>
   <body>
     <header>
-      <h1>Gestionnaire</h1>
+      <h1>Mon Gestionnaire</h1>
     </header>
-    <main>
-      <div class="row">
+    <main class="row">
         <section class="searchAndCreateSection">
           <div class="taskCreationButton">
-            <button id="createTaskButton">Créer</button>
+            <button class="btnCreateTask" id="createTaskButton">Créer</button>
           </div>
           <div id="openModalCreateTask" class="modalCreateTask">
             <div class="contentModalCreateTask">
-                <h2>Ajout de Tâches</h2>
-                <form id="taskForm">
-                  <select name="priorityTaskTag">
+                <h2>Ajoutez une Tâches</h2>
+                <form class="formModal" id="taskForm">
+                  <select class="selectPriorityTask" name="priorityTaskTag">
+                    <option value="">Priorité</option>
                     <option value="Basse">Basse</option>
                     <option value="Moyenne">Moyenne</option>
                     <option value="Elevée">Elevée</option>
@@ -34,6 +34,7 @@
                   <input type="date" name="timeTask" required>
                   <br>
                   <select name="stateTask">
+                    <option value="">Progression</option>
                     <option value="inProgress">En Cours</option>
                     <option value="finish">Terminé</option>
                   </select>
@@ -42,14 +43,14 @@
             </div>
           </div>
           <div class="searchBar">
-            <input type="search" id="searchTitle" placeholder="Recherche">
-            <button id="searchBar">Recherche</button>
+            <input class="inputSearchBar" type="search" id="searchTitle" placeholder="Recherche">
+            <button class="btnSearchBar" id="searchBar">Rechercher</button>
           </div>
           <div class="filterButton">
-            <button id="filterAllTask">Toutes</button>
-            <button id="filterInPorgressTask">En Cours</button>
-            <button id="filterCompletedTask">Terminées</button>
-            <select id="filterPriorityTask">
+            <button class="btnFilterAll" id="filterAllTask">Toutes</button>
+            <button class="btnFilterProgress" id="filterInPorgressTask">En Cours</button>
+            <button class="btnFilterCompleted" id="filterCompletedTask">Terminées</button>
+            <select class="selectFilterPriority" id="filterPriorityTask">
               <option value="sort">Trier / reset</option>
               <option value="shorter">Date court</option>
               <option value="longest">Date longue</option>
@@ -72,8 +73,9 @@
             <div id="cardCompleted"></div>
           </div>
         </section>
-      </div>
     </main>
-    <footer></footer>
+    <footer>
+      <p>Réalisation de Olivier GOY</p>
+    </footer>
   </body>
 </html>

@@ -1,12 +1,22 @@
 body {
+  font-family: cursive;
   margin: 0;
   padding: 0;
   left: 0;
   right: 0;
   min-height: 100%;
+  font-weight: bold;
+}
+button {
+  font-family: cursive;
+  font-weight: bold;
+  border-radius: 5px;
+  border: none;
+  padding: 7px;
+  color: white;
 }
 header {
-  border: solid 3px red;
+  background-color: #bc3ffe;
   height: 10vh;
   top: 0;
   position: relative;
@@ -16,13 +26,40 @@ header {
 }
 h1 {
   margin: 0;
-}
-main {
-  border: solid 3px blue;
-  min-height: 78vh;
+  color: white;
 }
 .row {
+  min-height: 78vh;
   text-align: center;
+  margin-top: 30px; 
+}
+input {  
+  border: none;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  padding: 9px;
+  border-radius: 5px;
+  font-family: cursive;
+  font-weight: bold;
+  color: #bc3ffe;
+}
+textarea {
+  border: none;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  padding: 9px;
+  font-family: cursive;
+  font-weight: bold;
+  border-radius: 5px;
+  color: #bc3ffe;
+}
+::placeholder {
+  font-family: cursive;
+  font-weight: bold;
+  color: #bc3ffe;
+}
+.btnCreateTask {
+  background-color: #bc3ffe;
+  padding: 9px 30px;
+  cursor: pointer;
 }
 .searchAndCreateSection {
   display: flex;
@@ -30,7 +67,6 @@ main {
 }
 .taskCreationButton {
   flex: 1;
-  border: solid 3px yellow;
 }
 .modalCreateTask {
   display: none;
@@ -59,6 +95,9 @@ main {
 	animation-name: animatetop;
 	animation-duration: 0.8s
 }
+.contentModalCreateTask > h2 {
+  color: #bc3ffe;
+}
 @-webkit-keyframes animatetop {
 	from {
 		top: -300px;
@@ -80,75 +119,148 @@ main {
 		opacity: 1
 	}
 }
+.formModal > h2 {
+ margin-bottom: 20px;
+ width: 90%;
+}
+.formModal > input {
+  margin-bottom: 20px;
+  width: 87%;
+}
+.formModal > textarea {
+  margin-bottom: 20px;
+  width: 87%;
+}
+.formModal > select {
+  border: none;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  padding: 9px;
+  border-radius: 5px;
+  color: #bc3ffe;
+  font-family: cursive;
+  font-weight: bold;
+  cursor: pointer;
+  margin-bottom: 20px;
+  width: 90%;
+}
 .searchBar {
   flex: 1;
-  border: solid 3px yellow;
+}
+.btnSearchBar, .btnFilterAll, .btnFilterProgress, .btnFilterCompleted {
+  background-color: #bc3ffe;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  cursor: pointer;
 }
 .filterButton {
   flex: 1;
-  border: solid 3px yellow;
+}
+.selectFilterPriority {
+  border: none;
+  border-radius: 5px;
+  padding: 7px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  color: #bc3ffe;
+  font-family: cursive;
+  font-weight: bold;
+  cursor: pointer;
 }
 .ProgressionBarSection {
-  margin: 20px;
+  margin: 50px 0 40px 0;
+  color: #bc3ffe;
 }
 progress {
-  height: 30px;
-  width: 200px;
+  height: 20px;
+  width: 300px;
+  border-radius: 10px;
+  overflow: hidden;
+  appearance: none;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+progress::-webkit-progress-bar {
+  background-color: white;
+  border-radius: 10px;
+}
+progress::-webkit-progress-value {
+  background-color: #bc3ffe;
+  border-radius: 10px;
+}
+progress::-moz-progress-bar {
+    background-color: #4caf50;
+    border-radius: 10px;
 }
 .containerInProgressAndCompleted {
   display: flex;
 }
 .inProgressSection {
-  border: solid 3px green;
   flex: 1;
 }
+.inProgressSection > h2 {
+  color: #bc3ffe;
+}
 .cardTask {
-  border: solid 1px gray;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   border-radius: 10px;
-  width: 30vh;
+  width: 40vh;
   text-align: left;
   margin: auto;
   margin-bottom: 20px;
+}
+.tagCard {
+  border-radius: 7px 7px 0 0;
+  display: flex;
+  padding: 10px;
 }
 .tagsCard {
   text-align: left;
   flex: 1;
 }
-.modificationCard {
-  display: flex;
-  text-align: right;
-  flex: 1;
-}
 .titleCard {
   text-align: center;
+  color: #bc3ffe;
 }
 .descriptionCard {
-  border: solid 1px gray;
-  border-radius: 5px;
-  padding: 10px;
-}
-.tagAndModificationCard {
-  display: flex;
+  border: solid 2px #dcdcdc;
+  border-right: none;
+  border-left: none;
   padding: 10px;
 }
 .dueDataCard {
   text-align: center;
 }
+.modificatedAndDeletedTask {
+  text-align: center;
+  padding: 20px 0;
+  border-top: solid 2px #dcdcdc;
+}
+.modifiedTask {
+  margin-right: 10px;
+  background: #bc3ffe;
+  cursor: pointer;
+}
+.deletedTask{
+  margin-left: 10px;
+  background: #ff3939 ;
+  cursor: pointer;
+}
 .completedSection {
-  border: solid 3px red;
   flex: 1;
 }
-.cardCompleted {
-  border: solid 1px black;
-  border-radius: 15px;
-  width: 40vh;
-  text-align: left;
-  margin: auto;
-  padding: 10px;
+.completedSection > h2 {
+  color: #bc3ffe;
+}
+.submitForm{
+  background-color: #bc3ffe;
+  cursor: pointer;
+  width: 90%;
+  padding: 20px;
 }
 footer {
-  border: solid 3px green;
+  background-color: #bc3ffe;
   height: 10vh;
   bottom: 0;
+  margin-top: 30px;
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

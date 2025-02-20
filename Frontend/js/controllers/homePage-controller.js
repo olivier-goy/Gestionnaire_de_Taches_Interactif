@@ -6,16 +6,17 @@ class ControllerHomePage {
     this.viewHomePage = new ViewHomePage();
     this.modelHomePage = new ModelHomePage();
 
-    this.viewHomePage.bindAddTask(this.handleAddTask.bind(this));
-    this.viewHomePage.bindModalModifiedTask(this.openModifiedTask.bind(this));
-    this.viewHomePage.bindModifiedTask(this.handleModifiedTask.bind(this));
-    this.viewHomePage.sortFilterTask(this.sortTask.bind(this));
     this.viewHomePage.renderTasks(this.modelHomePage.getTasks());
+    this.viewHomePage.bindAddTask(this.handleAddTask.bind(this));
     this.viewHomePage.searchBarTask(this.searchTasks.bind(this));
     this.viewHomePage.filterTask(this.modelHomePage.getTasks());
+    this.viewHomePage.sortFilterTask(this.sortTask.bind(this));
+    this.calPercentageTask();
+    this.viewHomePage.bindModalModifiedTask(this.openModifiedTask.bind(this));
+    this.viewHomePage.bindModifiedTask(this.handleModifiedTask.bind(this));
     this.viewHomePage.bindDeletedTask(this.handleDeletedTask.bind(this));
     this.viewHomePage.modalTask();
-    this.calPercentageTask();
+    this.alertDateTask();
   }
 
   // Méthode pour gérer l'ajout d'une tâches qui prend comme paramètres les veleur pour une nouvelle tâches provenant de la méthode bindAddTask du fichier homePage-view.js et qui les envoyer à la méthode addTask du fichier homePage-model.js.
@@ -32,6 +33,7 @@ class ControllerHomePage {
     this.viewHomePage.renderTasks(this.modelHomePage.getTasks());
     this.viewHomePage.bindDeletedTask(this.handleDeletedTask.bind(this));
     this.viewHomePage.bindModalModifiedTask(this.openModifiedTask.bind(this));
+    this.viewHomePage.bindModifiedTask(this.handleModifiedTask.bind(this));
     this.calPercentageTask();
   }
 
@@ -62,26 +64,7 @@ class ControllerHomePage {
     this.viewHomePage.renderTasks(researchTitle);
     this.viewHomePage.bindDeletedTask(this.handleDeletedTask.bind(this));
     this.viewHomePage.bindModalModifiedTask(this.openModifiedTask.bind(this));
-  }
-
-  // Méthode pour calculer le pourcentage de fin du projet en fonction des tâches terminer et en cours
-  calPercentageTask() {
-    const tasks = this.modelHomePage.getTasks();
-    const numberTask = tasks.length;
-    const numberCompletedTask = tasks.filter(
-      (task) => task.state == "finish"
-    ).length;
-
-    if (numberTask) {
-      this.viewHomePage.percentageTask(
-        (numberCompletedTask * 100) / numberTask
-      );
-    } else {
-      this.viewHomePage.percentageTask(0);
-    }
-    // Mise à jour l'affichage.
-    this.viewHomePage.bindDeletedTask(this.handleDeletedTask.bind(this));
-    this.viewHomePage.bindModalModifiedTask(this.openModifiedTask.bind(this));
+    this.viewHomePage.bindModifiedTask(this.handleModifiedTask.bind(this));
   }
 
   //Méthode pour filtrer des tâches qui prend comme parametre la valeur du select de la vue pour trier par date ou priorité les tâches et qui retourne à la vue un nouveau tableau avec les élements dispoble en correspondance avec le filtre.
@@ -93,7 +76,7 @@ class ControllerHomePage {
       Basse: 1,
       Moyenne: 2,
       Elevée: 3,
-    };
+    }
 
     if (filterPriorityTaskValue == "sort") {
       const sortReset = tasks.sort((a, b) => a.id - b.id); //Reset le filtre/trie
@@ -123,6 +106,24 @@ class ControllerHomePage {
     // Mise à jour l'affichage
     this.viewHomePage.bindDeletedTask(this.handleDeletedTask.bind(this));
     this.viewHomePage.bindModalModifiedTask(this.openModifiedTask.bind(this));
+    this.viewHomePage.bindModifiedTask(this.handleModifiedTask.bind(this))
+  }
+
+  // Méthode pour calculer le pourcentage de fin du projet en fonction des tâches terminer et en cours
+  calPercentageTask() {
+    const tasks = this.modelHomePage.getTasks();
+    const numberTask = tasks.length;
+    const numberCompletedTask = tasks.filter((task) => task.state == "finish").length;
+
+    if (numberTask) {
+      this.viewHomePage.percentageTask((numberCompletedTask * 100) / numberTask);
+    } else {
+      this.viewHomePage.percentageTask(0);
+    }
+    // Mise à jour l'affichage.
+    this.viewHomePage.bindDeletedTask(this.handleDeletedTask.bind(this));
+    this.viewHomePage.bindModalModifiedTask(this.openModifiedTask.bind(this));
+    this.viewHomePage.bindModifiedTask(this.handleModifiedTask.bind(this));
   }
 
   // Méthode pour gérer la récupération d'une tâches qui prend comme paramètre l'id d'une tâche provenant de la méthode bindModalModifiedTask dans la vue, l'envoye à la méthode getTaskId dans le model, récupére le resultat de la méthode getTaskId et le retourne à la méthode bindModifiedTask de la vue.
@@ -130,9 +131,7 @@ class ControllerHomePage {
     const getTaskId = this.modelHomePage.getTaskId(taskId);
 
     // Mise à jour l'affichage
-    this.viewHomePage.renderTasks(this.modelHomePage.getTasks());
-    this.viewHomePage.bindModalModifiedTask(this.openModifiedTask.bind(this));
-    this.viewHomePage.bindModifiedTask(this.handleModifiedTask.bind(this),getTaskId);
+    this.viewHomePage.bindModifiedTask(this.handleModifiedTask.bind(this), getTaskId);
   }
 
   // Méthode pour gérer les modifications d'une tâches qui prend comme paramètres les valeurs provenant de la méthode bindModifiedTask de la vue puis les envoies à la méthode updateTask du model.
@@ -146,9 +145,11 @@ class ControllerHomePage {
       stateTask
     );
 
-    //Mise a jour de l'affichage
+    // Mise a jour de l'affichage
     this.viewHomePage.renderTasks(this.modelHomePage.getTasks());
     this.viewHomePage.bindDeletedTask(this.handleDeletedTask.bind(this));
+    this.viewHomePage.bindModalModifiedTask(this.openModifiedTask.bind(this));
+    this.viewHomePage.bindModifiedTask(this.handleModifiedTask.bind(this));
     this.calPercentageTask();
   }
 
@@ -159,7 +160,20 @@ class ControllerHomePage {
     // Mettre à jour l'affichage
     this.viewHomePage.renderTasks(this.modelHomePage.getTasks());
     this.viewHomePage.bindDeletedTask(this.handleDeletedTask.bind(this));
+    this.viewHomePage.bindModifiedTask(this.handleModifiedTask.bind(this));
     this.calPercentageTask();
+  }
+
+  // Méthode pour gérer les alertes des tâches à finir aujourd'hui ou alors avec la date dépasser.
+  alertDateTask() {
+    const tasks = this.modelHomePage.getTasks()
+
+    const todaysDate = tasks.some(task => new Date().toLocaleDateString('fr-FR') == new Date(task.time).toLocaleDateString('fr-FR'));
+    const pastDate = tasks.some(task => new Date().toLocaleDateString('fr-FR') > new Date(task.time).toLocaleDateString('fr-FR'));
+
+    todaysDate ? alert("Attention une ou plusieurs tâches sont à finir aujourd'hui") : "";
+    pastDate ? alert("Attention la date de une ou plusieurs tâches sont dépasser") : "";
+
   }
 }
 
