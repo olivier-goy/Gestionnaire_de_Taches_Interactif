@@ -147,6 +147,8 @@ class ControllerHomePage {
     // Mise a jour de l'affichage
     this.viewHomePage.renderTasks(this.modelHomePage.getTasks());
     this.viewHomePage.bindDeletedTask(this.handleDeletedTask.bind(this));
+    this.viewHomePage.bindModalModifiedTask(this.openModifiedTask.bind(this));
+    this.viewHomePage.bindModifiedTask(this.handleModifiedTask.bind(this));
     this.calPercentageTask();
   }
 
