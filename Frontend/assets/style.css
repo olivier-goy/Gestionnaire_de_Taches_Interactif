@@ -6,7 +6,7 @@ body {
   min-height: 100%;
 }
 header {
-  border: solid 3px red;
+  background-color: #bc3ffe;
   height: 10vh;
   top: 0;
   position: relative;
@@ -147,7 +147,7 @@ progress {
   padding: 10px;
 }
 footer {
-  border: solid 3px green;
+  background-color: #bc3ffe;
   height: 10vh;
   bottom: 0;
   position: relative;
