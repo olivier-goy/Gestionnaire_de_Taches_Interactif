@@ -7,15 +7,13 @@ class ViewHomePage {
     this.btnSubmit = document.getElementById("btnSubmit");
   }
 
-  // Visuel de la barre de progression
+  // Méthode pour le visuel de la barre de progression qui prend comme paramètre le calcul du pourcentage provenant de la méthode calPercentageTask du controller
   percentageTask(percentageTask) {
     this.progressionBar.innerHTML = "";
 
     if (percentageTask) {
       const titleProgression = document.createElement("h3");
-      titleProgression.innerText = `Progression à ${Math.round(
-        percentageTask
-      )}%`;
+      titleProgression.innerText = `Progression à ${Math.round(percentageTask)}%`;
       const bar = document.createElement("progress");
       bar.max = 100;
       bar.value = percentageTask;
@@ -25,7 +23,7 @@ class ViewHomePage {
       this.progressionBar.appendChild(bar);
     }
   }
-  // Visuel de la carte des tâches
+  // Méthode pour le visuel de la carte des tâches qui prend comme paramètre le tableau des tâches provenant de la méthode handleAddTask du controller.
   renderTasks(tasks) {
     this.taskListInProgress.innerHTML = "";
     this.taskListCompleted.innerHTML = "";
@@ -40,7 +38,6 @@ class ViewHomePage {
       tags.textContent = task.priority;
       const divBtnModificationCard = document.createElement("div");
       divBtnModificationCard.classList = "modificationCard";
-
       const btnModificationCard = document.createElement("button");
       btnModificationCard.innerText = "Modifier";
       btnModificationCard.id = task.id;
@@ -49,7 +46,6 @@ class ViewHomePage {
       btnDeletedCard.innerText = "Supprimer";
       btnDeletedCard.id = task.id;
       btnDeletedCard.classList = "deletedTask";
-
       const divTitleCard = document.createElement("div");
       divTitleCard.classList = "titleCard";
       const h3TitleCard = document.createElement("h3");
@@ -63,7 +59,6 @@ class ViewHomePage {
       h3DueDataCard.textContent = `Date de fin: ${task.time}`;
 
       divTagsCard.appendChild(tags);
-
       divBtnModificationCard.appendChild(btnModificationCard);
       divBtnModificationCard.appendChild(btnDeletedCard);
       divTagAndModificationCard.appendChild(divTagsCard);
@@ -86,7 +81,7 @@ class ViewHomePage {
 
   
 
-  // Ecoute de la barre de recherche des Tâches
+  // Méthode pour l'écoute le bouton de la barre de recherche par titre des tâches prend comme paramêtre le retour du input de recherche pour l'envoyer à la méthode searchTasks du controller
   searchBarTask(handler) {
     const btnSearchBar = document.getElementById("searchBar");
     btnSearchBar.addEventListener("click", () => {
@@ -94,7 +89,7 @@ class ViewHomePage {
     });
   }
 
-  // Filtrer les Tâches pour toutes ou pour en cours ou terminée
+  // Méthode pour l'écoute les boutons des filtres pour les tâches en cours, terminé et toutes, et les affiches en fonction, prend comme paramêtre l'objet avec toutes les tâches provenant du controller.
   filterTask(tasks) {
     const btnFilterAllTask = document.getElementById("filterAllTask");
     btnFilterAllTask.addEventListener("click", () => {
@@ -102,9 +97,7 @@ class ViewHomePage {
       document.getElementById("cardCompleted").style.display = "block";
     });
 
-    const btnFilterInProgressTask = document.getElementById(
-      "filterInPorgressTask"
-    );
+    const btnFilterInProgressTask = document.getElementById("filterInPorgressTask");
     btnFilterInProgressTask.addEventListener("click", () => {
       tasks.forEach((task) => {
         if (task.state == "inProgress") {
@@ -114,9 +107,7 @@ class ViewHomePage {
       });
     });
 
-    const btnFilterCompletedTask = document.getElementById(
-      "filterCompletedTask"
-    );
+    const btnFilterCompletedTask = document.getElementById("filterCompletedTask");
     btnFilterCompletedTask.addEventListener("click", () => {
       tasks.forEach((task) => {
         if (task.state == "finish") {
@@ -127,7 +118,7 @@ class ViewHomePage {
     });
   }
 
-  //Ecoute pour trier par date les tâches.
+  // Méthode pour l'écoute du select pour trier par date et priotrité, prend comme paramètre le valeur du select et le retourne à la méthode sortTask dans le controller.
   sortFilterTask(handler) {
     const btnFilterPriorityTask = document.getElementById("filterPriorityTask");
     btnFilterPriorityTask.addEventListener("change", () => {
@@ -135,7 +126,7 @@ class ViewHomePage {
     });
   }
 
-  // Ecoute pour la modification d'une tâche
+  // Méthode pour l'écoute du bouton de la modification d'une tâche et l'ouverture de la modal, prend comme paramètre l'id de la tâches selectionner et la retourne à la méthode openModifiedTask dans le controller
   bindModalModifiedTask(handler) {
     document.querySelectorAll(".modifiedTask").forEach((button) => {
       button.addEventListener("click", (event) => {
@@ -146,7 +137,9 @@ class ViewHomePage {
     }); 
   }
   
+  // Méthode d'affichage des valeurs présente de la tâches à modifier et de l'écoute du bouton de validation de modification, prend comme paramètre la valeur des input et l'envoie à la méthode handleModifiedTask du controller et prend comme paramètre la tâches selectionné provenant de la méthode openModifiedTask du controller.
   bindModifiedTask(handler, task) {
+    this.form.reset();
     if(task) {
       this.form.querySelector('select[name="priorityTaskTag"]').value = task.priority;
       this.form.querySelector('input[name="titleTask"]').value = task.title;
@@ -164,42 +157,52 @@ class ViewHomePage {
       btnModifiedTask.type = "submit";
       btnModifiedTask.id = "btnModifiedTask";
 
-      addBtnSubmit.appendChild(btnModifiedTask)
+      addBtnSubmit.appendChild(btnModifiedTask);
 
       const modifiedTask = document.getElementById("btnModifiedTask");
-      modifiedTask.addEventListener("click", () => {
+      modifiedTask.addEventListener("click", (event) => {
+        event.preventDefault();
         const priorityTaskTag = this.form.querySelector('select[name="priorityTaskTag"]').value;
         const titleTask = this.form.querySelector('input[name="titleTask"]').value;
         const descriptionTask = this.form.querySelector('textarea[name="descriptionTask"]').value;
         const dateTask = this.form.querySelector('input[name="timeTask"]').value;
         const stateTask = this.form.querySelector('select[name="stateTask"]').value;
   
-        handler(
-          task.id,
-          priorityTaskTag,
-          titleTask,
-          descriptionTask,
-          dateTask,
-          stateTask
-        );
+        // Condition pour les valeurs obligatoire.
+        if (task.id && priorityTaskTag && titleTask && descriptionTask && dateTask && stateTask) {
+          handler(
+            task.id,
+            priorityTaskTag,
+            titleTask,
+            descriptionTask,
+            dateTask,
+            stateTask
+          );
+
+          this.form.reset();
+          document.getElementById("openModalCreateTask").style.display = "none";
+
+          this.form.querySelector('select[name="priorityTaskTag"]').style.border = "solid 1px black";
+          this.form.querySelector('input[name="titleTask"]').style.border = "solid 1px black";
+          this.form.querySelector('input[name="timeTask"]').style.border = "solid 1px black";
+          this.form.querySelector('select[name="stateTask"]').style.border = "solid 1px black";
+        } else {
+          this.form.querySelector('select[name="priorityTaskTag"]').style.border = "solid red";
+          this.form.querySelector('input[name="titleTask"]').style.border = "solid red";
+          this.form.querySelector('input[name="timeTask"]').style.border = "solid red";
+          this.form.querySelector('select[name="stateTask"]').style.border = "solid red";
+
+          alert("les champs en rouge sont obligatoire");
+        }
       });
   }
 
-  // Ecoute pour la suppression d'une tâche
-  bindDeletedTask(handler) {
-    document.querySelectorAll(".deletedTask").forEach((button) => {
-      button.addEventListener("click", (event) => {
-        event.preventDefault();
-        handler(event.currentTarget.id);
-      });
-    });
-  }
-
-  // Fermeture et initialisation de la modal de création et de modification des tâches
+  // Méthode pour la fermeture et l'initialisation de la modal de création et de modification des tâches
   modalTask() {
     document.getElementById("openModalCreateTask").style.display = "none";
 
     const modal = document.getElementById("openModalCreateTask");
+
     window.addEventListener("click", (event) => {
       if (event.target == modal) {
         modal.style.display = "none";
@@ -213,7 +216,7 @@ class ViewHomePage {
     });
   }
 
-  // Visuel des données du form pour la création de tâches
+  // Méthode pour le visuel du bouton valider, pour l'écoute du bouton d'ouverture de la modal et pour l'écoute du bouton valider la création d'une tâches, prend comme paramètre les valeurs des inputs et l'envoie à la méthode handleAddTask du controller.
   bindAddTask(handler) {
     const modal = document.getElementById("openModalCreateTask");
 
@@ -223,8 +226,8 @@ class ViewHomePage {
       this.btnSubmit.innerHTML = "";
 
       const addBtnSubmit = document.getElementById("btnSubmit");
-
       const btnAddTask = document.createElement("button");
+
       btnAddTask.innerText = "Valider";
       btnAddTask.type = "submit";
       btnAddTask.id = "btnAddTask";
@@ -240,7 +243,7 @@ class ViewHomePage {
         const dateTask = this.form.querySelector('input[name="timeTask"]').value;
         const stateTask = this.form.querySelector('select[name="stateTask"]').value;
   
-        //condition pour la gestion des champs vide et les rendres obligatoire
+        // Condition pour la gestion des champs vide et les rendres obligatoire
         if (priorityTask && titleTask && dateTask && dateTask) {
           handler(
             priorityTask,
@@ -251,31 +254,32 @@ class ViewHomePage {
           );
   
           this.form.reset();
-  
           document.getElementById("openModalCreateTask").style.display = "none";
-          this.form.querySelector('select[name="priorityTaskTag"]').style.border =
-            "solid 1px black";
-          this.form.querySelector('input[name="titleTask"]').style.border =
-            "solid 1px black";
-          this.form.querySelector('input[name="timeTask"]').style.border =
-            "solid 1px black";
-          this.form.querySelector('select[name="stateTask"]').style.border =
-            "solid 1px black";
+
+          this.form.querySelector('select[name="priorityTaskTag"]').style.border = "solid 1px black";
+          this.form.querySelector('input[name="titleTask"]').style.border = "solid 1px black";
+          this.form.querySelector('input[name="timeTask"]').style.border = "solid 1px black";
+          this.form.querySelector('select[name="stateTask"]').style.border = "solid 1px black";
         } else {
-          this.form.querySelector('select[name="priorityTaskTag"]').style.border =
-            "solid red";
-          this.form.querySelector('input[name="titleTask"]').style.border =
-            "solid red";
-          this.form.querySelector('input[name="timeTask"]').style.border =
-            "solid red";
-          this.form.querySelector('select[name="stateTask"]').style.border =
-            "solid red";
+          this.form.querySelector('select[name="priorityTaskTag"]').style.border = "solid red";
+          this.form.querySelector('input[name="titleTask"]').style.border = "solid red";
+          this.form.querySelector('input[name="timeTask"]').style.border = "solid red";
+          this.form.querySelector('select[name="stateTask"]').style.border = "solid red";
+
           alert("les champs en rouge sont obligatoire");
         }
       });
-
     });
-    
+  }
+
+  // Méthode pour l'écoute du bouton de suppression d'une tâche qui prend comme paramêtre l'id de la tâche et l'envoie à la méthode handleDeletedTask du controller.
+  bindDeletedTask(handler) {
+    document.querySelectorAll(".deletedTask").forEach((button) => {
+      button.addEventListener("click", (event) => {
+        event.preventDefault();
+        handler(event.currentTarget.id);
+      });
+    });
   }
 
   

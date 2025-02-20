@@ -3,6 +3,7 @@ class ModelHomePage {
     this.tasks = JSON.parse(localStorage.getItem("tasks")) || [];
   }
 
+  // Méthode pour la création d'un id et l'ajout d'une tâche sous forme d'objet dans un tableau du localstorage, prend comme paramêtre toutes les valeur provenant de la méthode handleAddTask du controller.
   addTask(priorityTaskTag, titleTask, descriptionTask, timeTask, stateTask) {
     let newId;
 
@@ -17,7 +18,6 @@ class ModelHomePage {
       }
     }
 
-    // Créer l'objet de la nouvelle tâches
     const newTask = {
       id: newId,
       priority: priorityTaskTag,
@@ -27,28 +27,26 @@ class ModelHomePage {
       state: stateTask,
     };
 
-    // Ajouter l'objet de la tâches à la liste
     this.tasks.push(newTask);
-
-    // Sauvegarder l'objet de la tâches dans le localstorage
     this.saveTasks();
   }
 
-  // Sauvegarder dans le localstorage
+  // Méthode pour sauvegarder dans le localstorage
   saveTasks() {
     localStorage.setItem("tasks", JSON.stringify(this.tasks));
   }
 
-  // Récupérer toutes les tâches dans le localstorage
+  // Méthode pour retourner le tableau de toutes les tâches
   getTasks() {
     return this.tasks;
   }
 
-  // Récupérer une tâches par sont id
+  // Méthode pour Retourner l'objet d'une tâches par sont id, prend comme paramètre id d'une tache provenant de la méthode openModificationTask du controller.
   getTaskId (taskId) {
    return this.tasks.find(task => task.id == taskId);
   }
 
+  // Méthode pour modifier l'objet d'une tâches l'injecter dans le tableau et sauvegarder le nouveau tableau dans le localstorage, prend comme paramètre l'id ainsi que les différentes valeur provenant de la méthode handleModifiedTask du controller.
   updateTask(taskId, priorityTask, titleTask, descriptionTask, dateTask, stateTask) {
     const modifiedTask= {
       id: taskId,
@@ -56,26 +54,25 @@ class ModelHomePage {
       title: titleTask,
       description: descriptionTask,
       time: dateTask,
-      state: stateTask,
+      state: stateTask
     }
     
     const index = this.tasks.findIndex(task => task.id == taskId);
 
     if(index !== -1) {
       this.tasks[index] = {...this.tasks[index], ...modifiedTask };
-      localStorage.setItem("tasks", JSON.stringify(this.tasks))
+      this.saveTasks();
     }
 
   }
 
-  // Supprimer un tâches par sont id
+  // Méthode pour supprimer l'objet d'une tâches du tableau grace à sont id et sauvegarde le tableau modifier dans le localstorage, prend comme paramètre id de la tâche provenant de la méthode handleDeletedTask du controller.
   deleteTask(taskId) {
     const index = this.tasks.findIndex((task) => task.id == taskId);
 
     if (index !== -1) {
-        this.tasks.splice(index, 1);
-
-        localStorage.setItem("tasks", JSON.stringify(this.tasks));
+      this.tasks.splice(index, 1);
+      this.saveTasks();
     }
   }
 }
