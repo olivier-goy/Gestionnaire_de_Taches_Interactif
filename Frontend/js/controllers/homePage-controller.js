@@ -16,6 +16,7 @@ class ControllerHomePage {
     this.viewHomePage.bindModifiedTask(this.handleModifiedTask.bind(this));
     this.viewHomePage.bindDeletedTask(this.handleDeletedTask.bind(this));
     this.viewHomePage.modalTask();
+    this.alertDateTask();
   }
 
   // Méthode pour gérer l'ajout d'une tâches qui prend comme paramètres les veleur pour une nouvelle tâches provenant de la méthode bindAddTask du fichier homePage-view.js et qui les envoyer à la méthode addTask du fichier homePage-model.js.
@@ -161,6 +162,18 @@ class ControllerHomePage {
     this.viewHomePage.bindDeletedTask(this.handleDeletedTask.bind(this));
     this.viewHomePage.bindModifiedTask(this.handleModifiedTask.bind(this));
     this.calPercentageTask();
+  }
+
+  // Méthode pour gérer les alertes des tâches à finir aujourd'hui ou alors avec la date dépasser.
+  alertDateTask() {
+    const tasks = this.modelHomePage.getTasks()
+
+    const todaysDate = tasks.some(task => new Date().toLocaleDateString('fr-FR') == new Date(task.time).toLocaleDateString('fr-FR'));
+    const pastDate = tasks.some(task => new Date().toLocaleDateString('fr-FR') > new Date(task.time).toLocaleDateString('fr-FR'));
+
+    todaysDate ? alert("Attention une ou plusieurs tâches sont à finir aujourd'hui") : "";
+    pastDate ? alert("Attention la date de une ou plusieurs tâches sont dépasser") : "";
+
   }
 }
 
