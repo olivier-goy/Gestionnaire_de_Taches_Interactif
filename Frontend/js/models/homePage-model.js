@@ -63,7 +63,6 @@ class ModelHomePage {
       this.tasks[index] = {...this.tasks[index], ...modifiedTask };
       this.saveTasks();
     }
-
   }
 
   // Méthode pour supprimer l'objet d'une tâches du tableau grace à sont id et sauvegarde le tableau modifier dans le localstorage, prend comme paramètre id de la tâche provenant de la méthode handleDeletedTask du controller.
