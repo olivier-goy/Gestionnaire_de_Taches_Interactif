@@ -18,7 +18,6 @@ class ModelHomePage {
       }
     }
 
-    // Créer l'objet de la nouvelle tâches
     const newTask = {
       id: newId,
       priority: priorityTaskTag,
@@ -28,10 +27,7 @@ class ModelHomePage {
       state: stateTask,
     };
 
-    // Ajouter l'objet de la tâches à la liste
     this.tasks.push(newTask);
-
-    // Sauvegarder l'objet de la tâches dans le localstorage grâce à la méthode saveTask.
     this.saveTasks();
   }
 
@@ -76,7 +72,6 @@ class ModelHomePage {
 
     if (index !== -1) {
       this.tasks.splice(index, 1);
-
       this.saveTasks();
     }
   }

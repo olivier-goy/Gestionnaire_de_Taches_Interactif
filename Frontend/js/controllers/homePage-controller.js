@@ -37,27 +37,22 @@ class ControllerHomePage {
 
   // Méthode pour rechercher des tâches par sont titre qui prend comme paramétre la valeur de la barre de recherche provenant de la méthode searchBarTask de homePage-view.js puis retourne le resultat a la vue.
   searchTasks(searchBar) {
-    // function qui supprime les accents.
     function normalizeText(textTitle) {
       return textTitle.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
     }
 
-    // Constante pour mettre le text en minuscule et récupérer le tableau des tâches
     const searchBarValue = normalizeText(searchBar.toLowerCase());
     const tasks = this.modelHomePage.getTasks();
 
-    // Condition pour vérifier si le champs de la barre est vide puis initialiser la vue si la condition et remplis
     if (searchBarValue.trim() === "") {
       this.viewHomePage.renderTasks(tasks);
       return;
     }
 
-    // constante pour rechercher tous les titres du localstorage qui pourrais correspondre a la recherche
     const researchTitle = tasks.filter((task) =>
       normalizeText(task.title.toLowerCase()).includes(searchBarValue)
     );
 
-    // Condition si le retour et un tableau vide alors envoyer un message d'alert comme quoi rien n'a était trouver puis initialiser la vue.
     if (researchTitle.length === 0) {
       this.viewHomePage.renderTasks(tasks);
       alert("Aucune correspondance trouvée !");
@@ -71,14 +66,12 @@ class ControllerHomePage {
 
   // Méthode pour calculer le pourcentage de fin du projet en fonction des tâches terminer et en cours
   calPercentageTask() {
-    // Constantes pour récupérer les différents chiffre pour le calcul du pourcentage.
     const tasks = this.modelHomePage.getTasks();
     const numberTask = tasks.length;
     const numberCompletedTask = tasks.filter(
       (task) => task.state == "finish"
     ).length;
 
-    // Condition si il y à des tâches faire le calcul du poucentage sinon retourner 0.
     if (numberTask) {
       this.viewHomePage.percentageTask(
         (numberCompletedTask * 100) / numberTask
