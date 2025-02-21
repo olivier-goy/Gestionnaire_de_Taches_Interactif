@@ -57,6 +57,7 @@ textarea {
   background-color: #00079e;
   padding: 9px 30px;
   cursor: pointer;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 .searchAndCreateSection {
   display: flex;
@@ -180,7 +181,7 @@ progress::-webkit-progress-value {
   border-radius: 10px;
 }
 progress::-moz-progress-bar {
-    background-color: #4caf50;
+    background-color: white;
     border-radius: 10px;
 }
 .containerInProgressAndCompleted {
@@ -191,6 +192,7 @@ progress::-moz-progress-bar {
 }
 .inProgressSection > h2 {
   color: #00079e;
+  font-weight: 900;
 }
 .cardTask {
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
@@ -242,6 +244,7 @@ progress::-moz-progress-bar {
 }
 .completedSection > h2 {
   color: #00079e;
+  font-weight: 900;
 }
 .submitForm{
   background-color: #00079e;

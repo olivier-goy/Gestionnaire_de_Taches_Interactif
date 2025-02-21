@@ -7,7 +7,8 @@ class ViewHomePage {
     this.btnSubmit = document.getElementById("btnSubmit");
   }
 
-  // Méthode pour le visuel du bouton valider, pour l'écoute du bouton d'ouverture de la modal et pour l'écoute du bouton valider la création d'une tâches, prend comme paramètre les valeurs des inputs et l'envoie à la méthode handleAddTask du controller.
+  // Méthode pour gérer l'affichage du bouton valider, l'écoute du bouton d'ouverture de la modal et l'écoute du bouton valider la création d'une tâche.
+  // Prend comme paramètre les valeurs des inputs et les envoie à la méthode handleAddTask du controller.
   bindAddTask(handler) {
     const modal = document.getElementById("openModalCreateTask");
 
@@ -34,7 +35,7 @@ class ViewHomePage {
         const dateTask = this.form.querySelector('input[name="timeTask"]').value;
         const stateTask = this.form.querySelector('select[name="stateTask"]').value;
 
-        // Condition pour la gestion des champs vide et les rendres obligatoire
+        // Condition pour vérifier si les champs sont vides et les rendre obligatoires avant la soumission.
         if (priorityTask && titleTask && dateTask && stateTask) {
           handler(
             priorityTask,
@@ -63,15 +64,16 @@ class ViewHomePage {
     });
   }
 
-  // Méthode pour l'écoute le bouton de la barre de recherche par titre des tâches prend comme paramêtre le retour du input de recherche pour l'envoyer à la méthode searchTasks du controller
+  // Méthode pour écouter le bouton de la barre de recherche des tâches par titre, prend comme paramètre la valeur de l'input de recherche et l'envoie à la méthode searchTasks du controller.
   searchBarTask(handler) {
     const btnSearchBar = document.getElementById("searchBar");
     btnSearchBar.addEventListener("click", () => {
-      handler(document.getElementById("searchTitle").value);
+      const searchBarValue = document.getElementById("searchTitle").value
+      handler(searchBarValue);
     });
   }
 
-  // Méthode pour l'écoute les boutons des filtres pour les tâches en cours, terminé et toutes, et les affiches en fonction, prend comme paramêtre l'objet avec toutes les tâches provenant du controller.
+  // Méthode pour écouter les boutons des filtres (tâches en cours, terminées et toutes), et afficher les tâches correspondantes en fonction de la sélection, prend comme paramètre l'objet contenant toutes les tâches provenant du controller.
   filterTask(tasks) {
     const btnFilterAllTask = document.getElementById("filterAllTask");
     btnFilterAllTask.addEventListener("click", () => {
@@ -100,32 +102,36 @@ class ViewHomePage {
     });
   }
 
-  // Méthode pour l'écoute du select pour trier par date et priotrité, prend comme paramètre le valeur du select et le retourne à la méthode sortTask dans le controller.
+  // Méthode pour écouter le select pour trier par date et priorité, prend comme paramètre la valeur du select et l'envoie à la méthode sortTask dans le controller.
   sortFilterTask(handler) {
     const btnFilterPriorityTask = document.getElementById("filterPriorityTask");
-    btnFilterPriorityTask.addEventListener("change", () => {
-      handler(btnFilterPriorityTask);
+    btnFilterPriorityTask.addEventListener("change", (event) => {
+      const selectFilterValue = event.currentTarget.value
+      const searchFilter = document.getElementById("searchTitle").value;
+      handler(selectFilterValue, searchFilter);
     });
   }
 
-  // Méthode pour le visuel de la barre de progression qui prend comme paramètre le calcul du pourcentage provenant de la méthode calPercentageTask du controller
+  // Méthode pour afficher le visuel de la barre de progression, prend comme paramètre le calcul du pourcentage provenant de la méthode calPercentageTask du controller.
   percentageTask(percentageTask) {
     this.progressionBar.innerHTML = "";
 
-    if (percentageTask) {
-      const titleProgression = document.createElement("h2");
-      titleProgression.innerText = `Progression à ${Math.round(percentageTask)}%`;
-      const bar = document.createElement("progress");
-      bar.max = 100;
-      bar.value = percentageTask;
-      bar.innerText = `${percentageTask}%`;
+    const titleProgression = document.createElement("h2");
+    titleProgression.innerText = `Progression à ${Math.round(percentageTask)}%`;
+    const bar = document.createElement("progress");
+    bar.max = 100;
+    bar.value = percentageTask;
+    bar.innerText = `${percentageTask}%`;
 
-      this.progressionBar.appendChild(titleProgression);
-      this.progressionBar.appendChild(bar);
+    this.progressionBar.appendChild(titleProgression);
+    this.progressionBar.appendChild(bar);
+
+    if(percentageTask == null) {
+      titleProgression.innerText = "Progression en attente"
     }
   }
 
-  // Méthode pour le visuel de la carte des tâches qui prend comme paramètre le tableau des tâches provenant de la méthode handleAddTask du controller.
+  // Méthode pour afficher le visuel de la carte des tâches, prend comme paramètre le tableau des tâches provenant de la méthode handleAddTask du controller.
   renderTasks(tasks) {
     this.taskListInProgress.innerHTML = "";
     this.taskListCompleted.innerHTML = "";
@@ -174,7 +180,7 @@ class ViewHomePage {
       divModifiedAndDeletedTask.appendChild(btnDeletedCard);
       divCardInProgress.appendChild(divModifiedAndDeletedTask);
 
-      // Condition pour afficher les tâches soit dans en cours ou alors terminés
+      // Condition pour afficher les tâches en fonction de leur statut : soit "en cours", soit "terminées".
       if (task.state == "inProgress") {
         this.taskListInProgress.appendChild(divCardInProgress);
       } else {
@@ -197,7 +203,8 @@ class ViewHomePage {
   }
 
 
-  // Méthode pour l'écoute du bouton de la modification d'une tâche et l'ouverture de la modal, prend comme paramètre l'id de la tâches selectionner et la retourne à la méthode openModifiedTask dans le controller
+  // Méthode pour écouter le clic sur le bouton de modification d'une tâche et ouvrir la modal de modification.
+  // Prend comme paramètre l'id de la tâche sélectionnée et le transmet à la méthode openModifiedTask dans le controller.
   bindModalModifiedTask(handler) {
     document.querySelectorAll(".modifiedTask").forEach((button) => {
       button.addEventListener("click", (event) => {
@@ -208,7 +215,9 @@ class ViewHomePage {
     }); 
   }
   
-  // Méthode d'affichage des valeurs présente de la tâches à modifier et de l'écoute du bouton de validation de modification, prend comme paramètre la valeur des input et l'envoie à la méthode handleModifiedTask du controller et prend comme paramètre la tâches selectionné provenant de la méthode openModifiedTask du controller.
+  // Méthode pour afficher les valeurs actuelles de la tâche à modifier et écouter le clic sur le bouton de validation de la modification.
+  // Prend comme paramètre les valeurs des inputs et les envoie à la méthode handleModifiedTask du controller.
+  // Prend également comme paramètre la tâche sélectionnée, provenant de la méthode openModifiedTask du controller.
   bindModifiedTask(handler, task) {
     this.form.reset();
     if(task) {
@@ -239,8 +248,11 @@ class ViewHomePage {
         const descriptionTask = this.form.querySelector('textarea[name="descriptionTask"]').value;
         const dateTask = this.form.querySelector('input[name="timeTask"]').value;
         const stateTask = this.form.querySelector('select[name="stateTask"]').value;
+
+        const selectFilter = document.getElementById("filterPriorityTask").value;
+        const searchFilter = document.getElementById("searchTitle").value;
   
-        // Condition pour les valeurs obligatoire.
+        // Condition pour vérifier que les valeurs des champs sont obligatoires avant de permettre l'envoi du formulaire.
         if (task.id && priorityTaskTag && titleTask && dateTask && stateTask) {
           handler(
             task.id,
@@ -248,7 +260,9 @@ class ViewHomePage {
             titleTask,
             descriptionTask,
             dateTask,
-            stateTask
+            stateTask, 
+            selectFilter,
+            searchFilter
           );
 
           this.form.reset();
@@ -269,17 +283,21 @@ class ViewHomePage {
       });
   }
 
-  // Méthode pour l'écoute du bouton de suppression d'une tâche qui prend comme paramêtre l'id de la tâche et l'envoie à la méthode handleDeletedTask du controller.
+  // Méthode pour écouter le bouton de suppression d'une tâche, prend en paramètre l'id de la tâche et l'envoie à la méthode handleDeletedTask du controller pour supprimer la tâche.
   bindDeletedTask(handler) {
     document.querySelectorAll(".deletedTask").forEach((button) => {
       button.addEventListener("click", (event) => {
         event.preventDefault();
-        handler(event.currentTarget.id);
+
+        const selectFilter = document.getElementById("filterPriorityTask").value;
+        const searchFilter = document.getElementById("searchTitle").value;
+
+        handler(event.currentTarget.id, selectFilter, searchFilter);
       });
     });
   }
 
-  // Méthode pour la fermeture et l'initialisation de la modal de création et de modification des tâches
+  // Méthode pour fermer et réinitialiser la modal de création et de modification des tâches, en préparation pour une nouvelle interaction utilisateur.
   modalTask() {
     document.getElementById("openModalCreateTask").style.display = "none";
 
