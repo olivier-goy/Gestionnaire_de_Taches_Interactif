@@ -40,7 +40,6 @@ input {
   border-radius: 5px;
   font-family: cursive;
   font-weight: bold;
-  color: #bc3ffe;
 }
 textarea {
   border: none;
@@ -49,12 +48,10 @@ textarea {
   font-family: cursive;
   font-weight: bold;
   border-radius: 5px;
-  color: #bc3ffe;
 }
 ::placeholder {
   font-family: cursive;
   font-weight: bold;
-  color: #bc3ffe;
 }
 .btnCreateTask {
   background-color: #bc3ffe;
@@ -136,7 +133,6 @@ textarea {
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   padding: 9px;
   border-radius: 5px;
-  color: #bc3ffe;
   font-family: cursive;
   font-weight: bold;
   cursor: pointer;
@@ -216,7 +212,7 @@ progress::-moz-progress-bar {
 }
 .titleCard {
   text-align: center;
-  color: #bc3ffe;
+  color: gray;
 }
 .descriptionCard {
   border: solid 2px #dcdcdc;
