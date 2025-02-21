@@ -1,5 +1,5 @@
 body {
-  font-family: cursive;
+  font-family: Arial;
   margin: 0;
   padding: 0;
   left: 0;
@@ -8,15 +8,15 @@ body {
   font-weight: bold;
 }
 button {
-  font-family: cursive;
+  font-family: Arial;
   font-weight: bold;
   border-radius: 5px;
   border: none;
-  padding: 7px;
+  padding: 9px;
   color: white;
 }
 header {
-  background-color: #bc3ffe;
+  background-color: #00079e;
   height: 10vh;
   top: 0;
   position: relative;
@@ -38,23 +38,23 @@ input {
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   padding: 9px;
   border-radius: 5px;
-  font-family: cursive;
+  font-family: Arial;
   font-weight: bold;
 }
 textarea {
   border: none;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   padding: 9px;
-  font-family: cursive;
+  font-family: Arial;
   font-weight: bold;
   border-radius: 5px;
 }
 ::placeholder {
-  font-family: cursive;
+  font-family: Arial;
   font-weight: bold;
 }
 .btnCreateTask {
-  background-color: #bc3ffe;
+  background-color: #00079e;
   padding: 9px 30px;
   cursor: pointer;
 }
@@ -93,7 +93,7 @@ textarea {
 	animation-duration: 0.8s
 }
 .contentModalCreateTask > h2 {
-  color: #bc3ffe;
+  color: #00079e;
 }
 @-webkit-keyframes animatetop {
 	from {
@@ -133,7 +133,7 @@ textarea {
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   padding: 9px;
   border-radius: 5px;
-  font-family: cursive;
+  font-family: Arial;
   font-weight: bold;
   cursor: pointer;
   margin-bottom: 20px;
@@ -143,7 +143,7 @@ textarea {
   flex: 1;
 }
 .btnSearchBar, .btnFilterAll, .btnFilterProgress, .btnFilterCompleted {
-  background-color: #bc3ffe;
+  background-color: #00079e;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   cursor: pointer;
 }
@@ -153,16 +153,15 @@ textarea {
 .selectFilterPriority {
   border: none;
   border-radius: 5px;
-  padding: 7px;
+  padding: 9px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  color: #bc3ffe;
-  font-family: cursive;
+  font-family: Arial;
   font-weight: bold;
   cursor: pointer;
 }
 .ProgressionBarSection {
   margin: 50px 0 40px 0;
-  color: #bc3ffe;
+  color: #00079e;
 }
 progress {
   height: 20px;
@@ -177,7 +176,7 @@ progress::-webkit-progress-bar {
   border-radius: 10px;
 }
 progress::-webkit-progress-value {
-  background-color: #bc3ffe;
+  background-color: #00079e;
   border-radius: 10px;
 }
 progress::-moz-progress-bar {
@@ -191,7 +190,7 @@ progress::-moz-progress-bar {
   flex: 1;
 }
 .inProgressSection > h2 {
-  color: #bc3ffe;
+  color: #00079e;
 }
 .cardTask {
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
@@ -230,7 +229,7 @@ progress::-moz-progress-bar {
 }
 .modifiedTask {
   margin-right: 10px;
-  background: #bc3ffe;
+  background: #00079e;
   cursor: pointer;
 }
 .deletedTask{
@@ -242,16 +241,16 @@ progress::-moz-progress-bar {
   flex: 1;
 }
 .completedSection > h2 {
-  color: #bc3ffe;
+  color: #00079e;
 }
 .submitForm{
-  background-color: #bc3ffe;
+  background-color: #00079e;
   cursor: pointer;
   width: 90%;
   padding: 20px;
 }
 footer {
-  background-color: #bc3ffe;
+  background-color: #00079e;
   height: 10vh;
   bottom: 0;
   margin-top: 30px;
@@ -259,4 +258,5 @@ footer {
   display: flex;
   justify-content: center;
   align-items: center;
+  color: white;
 }
