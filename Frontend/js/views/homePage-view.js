@@ -75,12 +75,6 @@ class ViewHomePage {
 
   // Méthode pour écouter les boutons des filtres (tâches en cours, terminées et toutes), et afficher les tâches correspondantes en fonction de la sélection, prend comme paramètre l'objet contenant toutes les tâches provenant du controller.
   filterTask(tasks) {
-    const btnFilterAllTask = document.getElementById("filterAllTask");
-    btnFilterAllTask.addEventListener("click", () => {
-      document.getElementById("cardInTask").style.display = "block";
-      document.getElementById("cardCompleted").style.display = "block";
-    });
-
     const btnFilterInProgressTask = document.getElementById("filterInPorgressTask");
     btnFilterInProgressTask.addEventListener("click", () => {
       tasks.forEach((task) => {
@@ -99,6 +93,17 @@ class ViewHomePage {
           document.getElementById("cardCompleted").style.display = "block";
         }
       });
+    });
+  }
+
+  bindResetFilter(handler) {
+    const btnFilterAllTask = document.getElementById("filterAllTask");
+    btnFilterAllTask.addEventListener("click", () => {
+      handler();
+      document.getElementById("cardInTask").style.display = "block";
+      document.getElementById("cardCompleted").style.display = "block";
+      document.getElementById("searchTitle").value = "";
+      document.getElementById("filterPriorityTask").selectedIndex = 0;
     });
   }
 

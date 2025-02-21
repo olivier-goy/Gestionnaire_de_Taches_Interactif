@@ -11,6 +11,7 @@ class ControllerHomePage {
     this.viewHomePage.searchBarTask(this.searchTasks.bind(this));
     this.viewHomePage.filterTask(this.modelHomePage.getTasks());
     this.viewHomePage.sortFilterTask(this.sortTask.bind(this));
+    this.viewHomePage.bindResetFilter(this.resetFilterAndSearch.bind(this));
     this.calPercentageTask();
     this.viewHomePage.bindModalModifiedTask(this.openModifiedTask.bind(this));
     this.viewHomePage.bindModifiedTask(this.handleModifiedTask.bind(this));
@@ -65,6 +66,18 @@ class ControllerHomePage {
     this.applySearchAndFilter();
   }
 
+  // Méthode pour réinitialiser les filtres et la recherche
+  resetFilterAndSearch() {
+    this.currentSearch = '';
+    this.currentFilter = '';
+
+    this.filteredBySearch = [...this.modelHomePage.getTasks()];
+    this.filteredByFilter = [...this.filteredBySearch];
+
+    this.viewHomePage.renderTasks(this.filteredByFilter);
+
+  }
+
   // Méthode pour appliquer les critères de recherche et de filtre sur l'ensemble des tâches
   // et mettre à jour l'affichage avec l'intersection des deux conditions (recherche et filtre).
   applySearchAndFilter() {
@@ -85,7 +98,7 @@ class ControllerHomePage {
       const priorityOrder = { Basse: 1, Moyenne: 2, Elevée: 3 };
       switch (this.currentFilter) {
         case "sort":
-          tasks.sort((a, b) => a.id - b.id);
+          this.modelHomePage.getTasks();
           break;
         case "shorter":
           tasks.sort((a, b) => new Date(a.time) - new Date(b.time));
@@ -129,7 +142,7 @@ class ControllerHomePage {
     } else if (numberTask == 0) {
       this.viewHomePage.percentageTask(null);
     } else {
-      this.viewHomePage.percentageTask(0)
+      this.viewHomePage.percentageTask(0);
     }
     // Mise à jour l'affichage.
     this.viewHomePage.bindDeletedTask(this.handleDeletedTask.bind(this));
