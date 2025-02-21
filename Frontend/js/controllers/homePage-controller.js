@@ -72,14 +72,12 @@ class ControllerHomePage {
 
     // Appliquer la recherche (si un critère est présent)
     if (this.currentSearch.trim() !== "") {
-      // On définit une fonction de normalisation
+
       function normalizeText(text) {
         return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
       }
       const searchText = normalizeText(this.currentSearch.toLowerCase());
-      tasks = tasks.filter(task =>
-        normalizeText(task.title.toLowerCase()).includes(searchText)
-      );
+      tasks = tasks.filter(task => normalizeText(task.title.toLowerCase()).includes(searchText));
     }
 
     // Appliquer le filtre (si un critère est présent)
