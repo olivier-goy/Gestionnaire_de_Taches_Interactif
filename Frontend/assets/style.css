@@ -53,15 +53,15 @@ textarea {
   font-family: Arial;
   font-weight: bold;
 }
+.searchAndCreateSection {
+  display: flex;
+  margin: 20px 0;
+}
 .btnCreateTask {
   background-color: #00079e;
   padding: 9px 30px;
   cursor: pointer;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-.searchAndCreateSection {
-  display: flex;
-  margin: 20px 0 20px 0;
 }
 .taskCreationButton {
   flex: 1;
@@ -85,7 +85,7 @@ textarea {
 	margin: auto;
 	padding: 30px;
 	border-radius: 7px;
-	width: 630px;
+	width: 50vh;
 	height: auto;
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 	-webkit-animation-name: animatetop;
@@ -198,6 +198,7 @@ progress::-moz-progress-bar {
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   border-radius: 10px;
   width: 40vh;
+  height: 447px;
   text-align: left;
   margin: auto;
   margin-bottom: 20px;
@@ -214,12 +215,24 @@ progress::-moz-progress-bar {
 .titleCard {
   text-align: center;
   color: gray;
+  height: 73px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 10px;
+}
+.titleCard > h3 {
+  margin: 0;
 }
 .descriptionCard {
   border: solid 2px #dcdcdc;
   border-right: none;
   border-left: none;
   padding: 10px;
+  height: 168px;
+}
+.descriptionCard > h4 {
+  margin: 0;
 }
 .dueDataCard {
   text-align: center;
@@ -262,4 +275,144 @@ footer {
   justify-content: center;
   align-items: center;
   color: white;
+}
+
+/* Partie respondsive avec les médias queries */
+
+@media (max-width: 1205px) {
+  .selectFilterPriority {
+    margin-top: 10px;
+  }
+}
+
+@media (max-width: 872px) {
+  .searchAndCreateSection {
+    display: block;
+  }
+
+  .taskCreationButton {
+    margin-bottom: 30px;
+  }
+
+  .btnCreateTask {
+    padding: 14px 94px;
+  }
+
+  .btnFilterAll,
+  .btnFilterProgress,
+  .btnFilterCompleted {
+    padding: 10px 19px;
+  }
+
+  .filterButton {
+    margin-top: 20px;
+    width: 300px;
+    margin: 30px auto;
+  }
+
+  .selectFilterPriority {
+    margin-top: 10px;
+    padding: 10px 70px;
+  }
+}
+
+@media (max-width: 745px) {
+  .cardTask {
+    width: 35vh;
+    height: 455px;
+  }
+
+  .descriptionCard {
+    height: 175px;
+  }
+
+  .descriptionCard>p {
+    margin: 5px 0;
+
+  }
+}
+
+@media (max-width: 655px) {
+  .cardTask {
+    width: 30vh;
+    height: 410px;
+  }
+
+  .titleCard>h3 {
+    font-size: 15px;
+  }
+
+  .descriptionCard {
+    height: 130px;
+  }
+
+  .descriptionCard>h4 {
+    font-size: 14px;
+
+  }
+
+  .descriptionCard>p {
+    font-size: 12px;
+
+  }
+}
+
+@media (max-width: 561px) {
+  .cardTask {
+    width: 25vh;
+  }
+
+  .titleCard>h3 {
+    font-size: 14px;
+  }
+
+  .descriptionCard {
+    height: 130px;
+  }
+
+  .descriptionCard>h4 {
+    font-size: 13px;
+  }
+
+  .descriptionCard>p {
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 468px) {
+  .cardTask {
+    width: 20vh;
+  }
+
+  .titleCard>h3 {
+    font-size: 13px;
+  }
+
+  .descriptionCard {
+    height: 130px;
+  }
+
+  .descriptionCard>h4 {
+    font-size: 12px;
+  }
+
+  .descriptionCard>p {
+    font-size: 10px;
+  }
+
+  .dueDataCard>h4 {
+    font-size: 12px;
+  }
+
+  .modificatedAndDeletedTask {
+    display: block;
+  }
+
+  .modifiedTask {
+    margin-right: 0;
+  }
+
+  .deletedTask {
+    margin-left: 0;
+  }
 }
