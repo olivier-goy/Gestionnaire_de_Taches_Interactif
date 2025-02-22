@@ -380,10 +380,12 @@ footer {
 }
 
 @media (max-width: 468px) {
+  .contentModalCreateTask {
+      width: 35vh;
+    }
   .cardTask {
     width: 20vh;
   }
-
   .titleCard>h3 {
     font-size: 13px;
   }
