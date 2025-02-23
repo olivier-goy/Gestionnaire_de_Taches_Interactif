@@ -307,6 +307,17 @@ class ViewHomePage {
     document.getElementById("openModalCreateTask").style.display = "none";
 
     const modal = document.getElementById("openModalCreateTask");
+    const btnCloseModal = document.getElementById("closeModal");
+
+    btnCloseModal.addEventListener("click", () => {
+      modal.style.display = "none";
+      document.getElementById("taskForm").reset();
+      document.getElementById("openModalCreateTask").style.display = "none";
+      this.form.querySelector('select[name="priorityTaskTag"]').style.border = "none";
+      this.form.querySelector('input[name="titleTask"]').style.border = "none";
+      this.form.querySelector('input[name="timeTask"]').style.border = "none";
+      this.form.querySelector('select[name="stateTask"]').style.border = "none";
+    });
 
     window.addEventListener("click", (event) => {
       if (event.target == modal) {

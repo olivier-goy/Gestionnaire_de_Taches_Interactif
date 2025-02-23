@@ -88,13 +88,20 @@ select{
 	margin: auto;
 	padding: 30px;
 	border-radius: 7px;
-	width: 50vh;
+	width: 426px;
 	height: auto;
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 	-webkit-animation-name: animatetop;
 	-webkit-animation-duration: 0.8s;
 	animation-name: animatetop;
 	animation-duration: 0.8s
+}
+.divCloseModal {
+ text-align: right;
+}
+.btnCloseModal {
+  padding: 8px 11px;
+  background-color: #ff3939;
 }
 .contentModalCreateTask > h2 {
   color: #00079e;
@@ -122,15 +129,15 @@ select{
 }
 .formModal > h2 {
  margin-bottom: 20px;
- width: 90%;
+ width: 100%;
 }
 .formModal > input {
   margin-bottom: 20px;
-  width: 84%;
+  width: 93.5%;
 }
 .formModal > textarea {
   margin-bottom: 20px;
-  width: 84%;
+  width: 93.5%;
 }
 .formModal > select {
   border: none;
@@ -141,7 +148,7 @@ select{
   font-weight: bold;
   cursor: pointer;
   margin-bottom: 20px;
-  width: 90%;
+  width: 100%;
 }
 .searchBar {
   flex: 1;
@@ -365,7 +372,7 @@ footer {
 
 @media (max-width: 510px) {
   .contentModalCreateTask {
-      width: 30vh;
+      width: 300px;
     }
   .cardTask {
     width: 230px;
