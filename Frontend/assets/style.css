@@ -197,11 +197,10 @@ progress::-moz-progress-bar {
 .cardTask {
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   border-radius: 10px;
-  width: 45vh;
+  width: 400px;
   height: 447px;
   text-align: left;
-  margin: auto;
-  margin-bottom: 20px;
+  margin: 20px auto;
 }
 .tagCard {
   border-radius: 7px 7px 0 0;
@@ -311,9 +310,9 @@ footer {
   }
 }
 
-@media (max-width: 770px) {
+@media (max-width: 825px) {
   .cardTask {
-    width: 40vh;
+    width: 350px;
     height: 455px;
   }
   .descriptionCard {
@@ -324,16 +323,16 @@ footer {
   }
 }
 
-@media (max-width: 681px) {
+@media (max-width: 715px) {
   .cardTask {
-    width: 35vh;
-    height: 410px;
+    width: 300px;
+    height: 390px;
   }
   .titleCard>h3 {
     font-size: 15px;
   }
   .descriptionCard {
-    height: 130px;
+    height: 110px;
   }
   .descriptionCard>h4 {
     font-size: 14px;
@@ -343,15 +342,16 @@ footer {
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 615px) {
   .cardTask {
-    width: 30vh;
+    width: 250px;
+    height: 385px;
   }
   .titleCard>h3 {
     font-size: 14px;
   }
   .descriptionCard {
-    height: 130px;
+    height: 110px;
   }
   .descriptionCard>h4 {
     font-size: 13px;
@@ -366,14 +366,14 @@ footer {
       width: 30vh;
     }
   .cardTask {
-    width: 28vh;
+    width: 230px;
+    height: 365px;
   }
   .titleCard>h3 {
     font-size: 13px;
   }
-
   .descriptionCard {
-    height: 130px;
+    height: 100px;
   }
   .descriptionCard>h4 {
     font-size: 12px;
@@ -396,16 +396,38 @@ footer {
 }
 @media (max-width: 478px) {
   .cardTask {
-    width: 26vh;
+    width: 210px;
+    height: 375px;
+  }
+  .descriptionCard {
+    height: 110px;
   }
 }
 @media (max-width: 428px) {
   .cardTask {
-    width: 23vh;
+    width: 200px;
+    height: 380px;
+  }
+  .descriptionCard {
+    height: 120px;
   }
 }
-@media (max-width: 393px) {
+@media (max-width: 408px) {
   .cardTask {
-    width: 20vh;
+    width: 190px;
+  }
+}
+@media (max-width: 388px) {
+  .cardTask {
+    width: 180px;
+  }
+}
+@media (max-width: 367px) {
+  .cardTask {
+    width: 170px;
+    height: 390px;
+  }
+  .descriptionCard {
+    height: 130px;
   }
 }
