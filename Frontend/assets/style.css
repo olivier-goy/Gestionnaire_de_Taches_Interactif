@@ -271,7 +271,7 @@ progress::-moz-progress-bar {
 .submitForm{
   background-color: #00079e;
   cursor: pointer;
-  width: 90%;
+  width: 100%;
   padding: 20px;
 }
 footer {
