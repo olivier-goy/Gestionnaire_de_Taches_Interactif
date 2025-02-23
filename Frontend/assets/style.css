@@ -416,10 +416,16 @@ footer {
   .cardTask {
     width: 190px;
   }
+  .descriptionCard {
+    height: 125px;
+  }
 }
 @media (max-width: 388px) {
   .cardTask {
     width: 180px;
+  }
+  .descriptionCard {
+    height: 120px;
   }
 }
 @media (max-width: 367px) {
