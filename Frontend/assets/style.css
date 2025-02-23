@@ -197,7 +197,7 @@ progress::-moz-progress-bar {
 .cardTask {
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   border-radius: 10px;
-  width: 40vh;
+  width: 45vh;
   height: 447px;
   text-align: left;
   margin: auto;
@@ -289,102 +289,84 @@ footer {
   .searchAndCreateSection {
     display: block;
   }
-
   .taskCreationButton {
     margin-bottom: 30px;
   }
-
   .btnCreateTask {
     padding: 14px 94px;
   }
-
   .btnFilterAll,
   .btnFilterProgress,
   .btnFilterCompleted {
     padding: 10px 19px;
   }
-
   .filterButton {
     margin-top: 20px;
     width: 300px;
     margin: 30px auto;
   }
-
   .selectFilterPriority {
     margin-top: 10px;
     padding: 10px 70px;
   }
 }
 
-@media (max-width: 745px) {
+@media (max-width: 770px) {
   .cardTask {
-    width: 35vh;
+    width: 40vh;
     height: 455px;
   }
-
   .descriptionCard {
     height: 175px;
   }
-
   .descriptionCard>p {
     margin: 5px 0;
-
   }
 }
 
-@media (max-width: 655px) {
+@media (max-width: 681px) {
   .cardTask {
-    width: 30vh;
+    width: 35vh;
     height: 410px;
   }
-
   .titleCard>h3 {
     font-size: 15px;
   }
-
   .descriptionCard {
     height: 130px;
   }
-
   .descriptionCard>h4 {
     font-size: 14px;
-
   }
-
   .descriptionCard>p {
     font-size: 12px;
-
   }
 }
 
-@media (max-width: 561px) {
+@media (max-width: 600px) {
   .cardTask {
-    width: 25vh;
+    width: 30vh;
   }
-
   .titleCard>h3 {
     font-size: 14px;
   }
-
   .descriptionCard {
     height: 130px;
   }
-
   .descriptionCard>h4 {
     font-size: 13px;
   }
-
   .descriptionCard>p {
     font-size: 11px;
   }
 }
 
-@media (max-width: 468px) {
+@media (max-width: 510px) {
   .contentModalCreateTask {
-      width: 35vh;
+      width: 30vh;
     }
   .cardTask {
-    width: 20vh;
+    width: 28vh;
   }
   .titleCard>h3 {
     font-size: 13px;
@@ -393,28 +375,37 @@ footer {
   .descriptionCard {
     height: 130px;
   }
-
   .descriptionCard>h4 {
     font-size: 12px;
   }
-
   .descriptionCard>p {
     font-size: 10px;
   }
-
   .dueDataCard>h4 {
     font-size: 12px;
   }
-
   .modificatedAndDeletedTask {
     display: block;
   }
-
   .modifiedTask {
     margin-right: 0;
   }
-
   .deletedTask {
     margin-left: 0;
+  }
+}
+@media (max-width: 478px) {
+  .cardTask {
+    width: 26vh;
+  }
+}
+@media (max-width: 428px) {
+  .cardTask {
+    width: 23vh;
+  }
+}
+@media (max-width: 393px) {
+  .cardTask {
+    width: 20vh;
   }
 }
