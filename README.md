@@ -34,6 +34,8 @@ Ce document présente une explication détaillée des étapes suivies pour le d�
 - **Gestion des alertes** : Avertissement pour les tâches dépassées ou à terminer aujourd'hui.
 - **Affichage dynamique** : Mise à jour automatique de l'interface utilisateur après chaque action de l'utilisateur.
 - **Réinitialisation des filtres** : Ajout d'un bouton permettant de réinitialiser tous les critères de tri et de recherche.
+- **Affichage de la progression des tâches** : Implémentation d'une barre de progression pour chaque tâche en fonction de son état (en cours, terminée). Cela permet à l'utilisateur de suivre facilement l'avancement de ses tâches.
+- **Responsivité du site** : Adaptation de l'interface pour une utilisation optimale sur tous types d'écrans (ordinateurs, tablettes, mobiles).
 
 ## 3. Choix techniques et stylistiques
 
